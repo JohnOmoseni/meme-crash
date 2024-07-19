@@ -1,6 +1,21 @@
 {
-  "name": "meme-crash",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+	"name": "meme-crash",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"packages/api",
+			"packages/contracts",
+			"packages/front-end",
+			"packages/api"
+		]
+	},
+	"scripts": {
+		"dev": "yarn workspace front-end dev",
+		"api:dev": "yarn workspace api start:dev",
+		"build": "yarn workspace front-end build",
+		"start": "yarn workspace front-end start"
+	}
 }
