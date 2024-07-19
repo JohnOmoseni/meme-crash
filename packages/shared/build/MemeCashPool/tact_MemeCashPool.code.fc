@@ -1,0 +1,178 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_MemeCashPool.headers.fc";
+#include "tact_MemeCashPool.stdlib.fc";
+#include "tact_MemeCashPool.storage.fc";
+
+;;
+;; Contract MemeCashPool functions
+;;
+
+(slice, int) $MemeCashPool$_contract_init() impure inline_ref {
+    var (($self'deployer, $self'balance)) = (null(), null());
+    $self'deployer = __tact_context_get_sender();
+    $self'balance = 0;
+    return ($self'deployer, $self'balance);
+}
+
+((slice, int), int) $MemeCashPool$_fun_myPoolBalance((slice, int) $self) impure inline_ref {
+    var (($self'deployer, $self'balance)) = $self;
+    return (($self'deployer, $self'balance), $self'balance);
+}
+
+((slice, int), slice) $MemeCashPool$_fun_getPredictorStoreAddress((slice, int) $self, slice $address) impure inline_ref {
+    var (($self'deployer, $self'balance)) = $self;
+    var ($init'code, $init'data) = $MemeCrashChild$_init_child(__tact_context_sys, my_address(), $address);
+    return (($self'deployer, $self'balance), $global_contractAddress(($init'code, $init'data)));
+}
+
+;;
+;; Receivers of a Contract MemeCashPool
+;;
+
+(((slice, int)), ()) $MemeCashPool$_internal_binary_Predict((slice, int) $self, (int, int, int, int) $msg) impure inline {
+    var ($self'deployer, $self'balance) = $self;
+    var ($msg'queryId, $msg'amount, $msg'roundNumber, $msg'predictionNumber) = $msg;
+    var ($init'code, $init'data) = $MemeCrashChild$_init_child(__tact_context_sys, my_address(), __tact_context_get_sender());
+    $global_send($SendParameters$_constructor_to_body_value_mode_code_data($global_contractAddress(($init'code, $init'data)), $InternalAddTons$_store_cell($InternalAddTons$_constructor_amount_origin($msg'amount, my_address())), 30000000, 2, $init'code, $init'data));
+    $self'balance = ($self'balance + ($Context$_get_value(__tact_context_get()) - 30000000));
+    $global_emit($NewPredictionEvent$_store_cell($NewPredictionEvent$_constructor_amount_predictionNumber_roundNumber_sender(($Context$_get_value(__tact_context_get()) - 30000000), $msg'predictionNumber, $msg'roundNumber, __tact_context_get_sender())));
+    return (($self'deployer, $self'balance), ());
+}
+
+(((slice, int)), ()) $MemeCashPool$_internal_binary_Withdraw((slice, int) $self, (int) $msg) impure inline {
+    var ($self'deployer, $self'balance) = $self;
+    var ($msg'amount) = $msg;
+    throw_unless(15509, ( __tact_slice_eq_bits($self'deployer, __tact_context_get_sender()) ));
+    int $amount = min($msg'amount, ((__tact_my_balance() - $Context$_get_value(__tact_context_get())) - 10000000));
+    throw_unless(54615, ($amount > 0));
+    $global_send($SendParameters$_constructor_to_bounce_value_mode(__tact_context_get_sender(), true, $msg'amount, 66));
+    return (($self'deployer, $self'balance), ());
+}
+
+(((slice, int)), ()) $MemeCashPool$_internal_binary_Claim((slice, int) $self, (int, slice) $msg) impure inline {
+    var ($self'deployer, $self'balance) = $self;
+    var ($msg'amount, $msg'sender) = $msg;
+    var ($init'code, $init'data) = $MemeCrashChild$_init_child(__tact_context_sys, my_address(), __tact_context_get_sender());
+    throw_unless(54615, ($msg'amount > 0));
+    throw_unless(24495, ($msg'amount <= __tact_my_balance()));
+    int $amount = min($msg'amount, ((__tact_my_balance() - $Context$_get_value(__tact_context_get())) - 10000000));
+    $global_send($SendParameters$_constructor_to_body_value_mode_code_data($global_contractAddress(($init'code, $init'data)), $InternalSubTons$_store_cell($InternalSubTons$_constructor_origin(my_address())), 30000000, 2, $init'code, $init'data));
+    $global_send($SendParameters$_constructor_to_bounce_value_mode(__tact_context_get_sender(), true, $amount, 66));
+    return (($self'deployer, $self'balance), ());
+}
+
+(((slice, int)), ()) $MemeCashPool$_internal_binary_Deploy((slice, int) $self, (int) $deploy) impure inline {
+    var ($self'deployer, $self'balance) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'deployer, $self'balance)~$MemeCashPool$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'deployer, $self'balance), ());
+}
+
+;;
+;; Get methods of a Contract MemeCashPool
+;;
+
+_ %myPoolBalance() method_id(108615) {
+    var self = $MemeCashPool$_contract_load();
+    var res = self~$MemeCashPool$_fun_myPoolBalance();
+    return res;
+}
+
+_ %getPredictorStoreAddress(slice $$address) method_id(82891) {
+    slice $address = __tact_verify_address($$address);
+    var self = $MemeCashPool$_contract_load();
+    var res = self~$MemeCashPool$_fun_getPredictorStoreAddress($address);
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmeHnFE1fPBequypsxCbG1Yjt3aKbq4Fi6z8yKnYgfbLuy";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract MemeCashPool
+;;
+
+((slice, int), int) $MemeCashPool$_contract_router_internal((slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Predict message
+    if (op == 2019530622) {
+        var msg = in_msg~$Predict$_load();
+        self~$MemeCashPool$_internal_binary_Predict(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Withdraw message
+    if (op == 195467089) {
+        var msg = in_msg~$Withdraw$_load();
+        self~$MemeCashPool$_internal_binary_Withdraw(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Claim message
+    if (op == 716220419) {
+        var msg = in_msg~$Claim$_load();
+        self~$MemeCashPool$_internal_binary_Claim(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$MemeCashPool$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $MemeCashPool$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$MemeCashPool$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $MemeCashPool$_contract_store(self);
+}

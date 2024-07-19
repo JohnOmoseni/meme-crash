@@ -1,0 +1,243 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: Context
+;; TLB: _ bounced:bool sender:address value:int257 raw:^slice = Context
+;;
+
+_ $Context$_get_value((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'value;
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_body_value_mode_code_data(slice to, cell body, int value, int mode, cell code, cell data) inline {
+    return (true, to, value, mode, body, code, data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_bounce_value_mode(slice to, int bounce, int value, int mode) inline {
+    return (bounce, to, value, mode, null(), null(), null());
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int queryId) inline {
+    return (queryId);
+}
+
+;;
+;; Type: InternalAddTons
+;; Header: 0x65e974bc
+;; TLB: internal_add_tons#65e974bc amount:coins origin:address = InternalAddTons
+;;
+
+builder $InternalAddTons$_store(builder build_0, (int, slice) v) inline {
+    var (v'amount, v'origin) = v;
+    build_0 = store_uint(build_0, 1709798588, 32);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = __tact_store_address(build_0, v'origin);
+    return build_0;
+}
+
+cell $InternalAddTons$_store_cell((int, slice) v) inline {
+    return $InternalAddTons$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice)) $InternalAddTons$_constructor_amount_origin(int amount, slice origin) inline {
+    return (amount, origin);
+}
+
+;;
+;; Type: InternalSubTons
+;; Header: 0x4c9bec15
+;; TLB: internal_sub_tons#4c9bec15 origin:address = InternalSubTons
+;;
+
+builder $InternalSubTons$_store(builder build_0, (slice) v) inline {
+    var (v'origin) = v;
+    build_0 = store_uint(build_0, 1285286933, 32);
+    build_0 = __tact_store_address(build_0, v'origin);
+    return build_0;
+}
+
+cell $InternalSubTons$_store_cell((slice) v) inline {
+    return $InternalSubTons$_store(begin_cell(), v).end_cell();
+}
+
+((slice)) $InternalSubTons$_constructor_origin(slice origin) inline {
+    return (origin);
+}
+
+;;
+;; Type: Predict
+;; Header: 0x785f977e
+;; TLB: predict#785f977e queryId:uint64 amount:coins roundNumber:uint64 predictionNumber:uint64 = Predict
+;;
+
+(slice, ((int, int, int, int))) $Predict$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2019530622);
+    var v'queryId = sc_0~load_uint(64);
+    var v'amount = sc_0~load_coins();
+    var v'roundNumber = sc_0~load_uint(64);
+    var v'predictionNumber = sc_0~load_uint(64);
+    return (sc_0, (v'queryId, v'amount, v'roundNumber, v'predictionNumber));
+}
+
+;;
+;; Type: Withdraw
+;; Header: 0x0ba69751
+;; TLB: withdraw#0ba69751 amount:coins = Withdraw
+;;
+
+(slice, ((int))) $Withdraw$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 195467089);
+    var v'amount = sc_0~load_coins();
+    return (sc_0, (v'amount));
+}
+
+;;
+;; Type: Claim
+;; Header: 0x2ab0a803
+;; TLB: claim#2ab0a803 amount:coins sender:address = Claim
+;;
+
+(slice, ((int, slice))) $Claim$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 716220419);
+    var v'amount = sc_0~load_coins();
+    var v'sender = sc_0~__tact_load_address();
+    return (sc_0, (v'amount, v'sender));
+}
+
+;;
+;; Type: NewPredictionEvent
+;; Header: 0xf503fdc2
+;; TLB: new_prediction_event#f503fdc2 amount:coins roundNumber:uint64 predictionNumber:uint64 sender:address = NewPredictionEvent
+;;
+
+builder $NewPredictionEvent$_store(builder build_0, (int, int, int, slice) v) inline {
+    var (v'amount, v'roundNumber, v'predictionNumber, v'sender) = v;
+    build_0 = store_uint(build_0, 4110679490, 32);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = build_0.store_uint(v'roundNumber, 64);
+    build_0 = build_0.store_uint(v'predictionNumber, 64);
+    build_0 = __tact_store_address(build_0, v'sender);
+    return build_0;
+}
+
+cell $NewPredictionEvent$_store_cell((int, int, int, slice) v) inline {
+    return $NewPredictionEvent$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, int, slice)) $NewPredictionEvent$_constructor_amount_predictionNumber_roundNumber_sender(int amount, int predictionNumber, int roundNumber, slice sender) inline {
+    return (amount, roundNumber, predictionNumber, sender);
+}
+
+;;
+;; Type: MemeCrashChild
+;;
+
+builder $MemeCrashChild$init$_store(builder build_0, (slice, slice) v) inline {
+    var (v'parent, v'owner) = v;
+    build_0 = __tact_store_address(build_0, v'parent);
+    build_0 = __tact_store_address(build_0, v'owner);
+    return build_0;
+}
+
+(cell, cell) $MemeCrashChild$_init_child(cell sys', slice $parent, slice $owner) inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: MemeCrashChild
+    cell mine = __tact_dict_get_code(source, 40609);
+    contracts = __tact_dict_set_code(contracts, 40609, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $MemeCrashChild$init$_store(b, ($parent, $owner));
+    return (mine, b.end_cell());
+}
+
+;;
+;; Type: MemeCashPool
+;;
+
+builder $MemeCashPool$_store(builder build_0, (slice, int) v) inline {
+    var (v'deployer, v'balance) = v;
+    build_0 = __tact_store_address(build_0, v'deployer);
+    build_0 = build_0.store_coins(v'balance);
+    return build_0;
+}
+
+(slice, ((slice, int))) $MemeCashPool$_load(slice sc_0) inline {
+    var v'deployer = sc_0~__tact_load_address();
+    var v'balance = sc_0~load_coins();
+    return (sc_0, (v'deployer, v'balance));
+}
+
+(slice, int) $MemeCashPool$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$MemeCashPool$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $MemeCashPool$_contract_init();
+    }
+}
+
+() $MemeCashPool$_contract_store((slice, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $MemeCashPool$_store(b, v);
+    set_data(b.end_cell());
+}

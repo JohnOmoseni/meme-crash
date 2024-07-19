@@ -17,7 +17,7 @@ export const tonConnect = new TonConnectUI({
 });
 
 export const walletClient = createWalletClientUI({
-	chain: "mainnet",
+	chain: "testnet",
 	connection: tonConnect
 });
 export default function Navabar() {

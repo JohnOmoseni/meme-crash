@@ -1,0 +1,46 @@
+;;
+;; Header files for MemeCrashChild
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_slice_eq_bits
+int __tact_slice_eq_bits(slice a, slice b) inline;
+
+;; $InternalAddTons$_load
+(slice, ((int, slice))) $InternalAddTons$_load(slice sc_0) inline;
+
+;; $InternalSubTons$_load
+(slice, ((slice))) $InternalSubTons$_load(slice sc_0) inline;
+
+;; $MemeCrashChild$_store
+builder $MemeCrashChild$_store(builder build_0, (slice, slice, int) v) inline;
+
+;; $MemeCrashChild$_load
+(slice, ((slice, slice, int))) $MemeCrashChild$_load(slice sc_0) inline;
+
+;; $MemeCrashChild$init$_load
+(slice, ((slice, slice))) $MemeCrashChild$init$_load(slice sc_0) inline;
+
+;; $MemeCrashChild$_contract_init
+(slice, slice, int) $MemeCrashChild$_contract_init(slice $parent, slice $owner) impure inline_ref;
+
+;; $MemeCrashChild$_contract_load
+(slice, slice, int) $MemeCrashChild$_contract_load() impure inline_ref;
+
+;; $MemeCrashChild$_contract_store
+() $MemeCrashChild$_contract_store((slice, slice, int) v) impure inline;
+
+;; $MemeCrashChild$_fun_predictionBalance
+((slice, slice, int), int) $MemeCrashChild$_fun_predictionBalance((slice, slice, int) $self) impure inline_ref;

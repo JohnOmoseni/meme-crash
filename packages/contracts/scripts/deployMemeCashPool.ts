@@ -3,7 +3,7 @@ import { MemeCashPool } from '../wrappers/MemeCashPool';
 import { NetworkProvider } from '@ton/blueprint';
 
 export async function run(provider: NetworkProvider) {
-    const memeCashPool = provider.open(await MemeCashPool.fromInit(BigInt(Math.floor(Math.random() * 10000))));
+    const memeCashPool = provider.open(await MemeCashPool.fromInit());
 
     await memeCashPool.send(
         provider.sender(),
@@ -13,10 +13,10 @@ export async function run(provider: NetworkProvider) {
         {
             $$type: 'Deploy',
             queryId: 0n,
-        }
+        },
     );
 
     await provider.waitForDeploy(memeCashPool.address);
 
-    console.log('ID', await memeCashPool.getId());
+    console.log('ID', await memeCashPool.getMyPoolBalance());
 }
