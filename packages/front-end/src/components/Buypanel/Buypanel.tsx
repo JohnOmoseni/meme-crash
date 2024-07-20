@@ -1,6 +1,9 @@
+"use client";
+import useContractClient from "@/hooks/useContractClient";
 import React from "react";
 
 export default function Buypanel() {
+	const { joinGame } = useContractClient();
 	return (
 		<div className="w-1/3 text-white rounded-sm  text-xs">
 			<span className="text-xs">Place Your Trade</span>
@@ -23,7 +26,17 @@ export default function Buypanel() {
 					{" "}
 					<label>Amount to trade:</label>
 					<input type="text" placeholder="Input text" />{" "}
-					<button className="snes-button has-ocean-color">
+					<button
+						onClick={async () => {
+							try {
+								const res = await joinGame("0.1", 2, 1);
+								console.log(res);
+							} catch (error) {
+								console.log(error);
+							}
+						}}
+						className="snes-button has-ocean-color"
+					>
 						Trade
 					</button>{" "}
 				</div>

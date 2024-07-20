@@ -19,9 +19,9 @@ export default function Container() {
 
 				<Chat />
 			</div>
-			<div className="w-[30%]">
+			{/* <div className="w-[30%]">
 				<PlayerBoard />
-			</div>
+			</div> */}
 		</div>
 	);
 }

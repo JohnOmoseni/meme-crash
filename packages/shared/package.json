@@ -1,0 +1,12 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@ton/core": "^0.56.3",
+    "@ton/crypto": "^3.2.0",
+    "@ton/ton": "^14.0.0",
+    "buffer": "^6.0.3"
+  }
+}

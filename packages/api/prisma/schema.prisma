@@ -1,0 +1,58 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  tgId          String   @unique
+  userName      String?
+  privateKey    String
+  mnemonic      String
+  autoBuy       Boolean
+  autoSell      Boolean
+  slippage      String
+  buyAmount     String
+  sellAmount    String
+  tokens        String[]
+  referrer      Int
+  referralCount Int
+  points        Int
+  TradeVolume   Int
+
+  hashRt       String
+  hashRtExpiry String
+}
+
+model Bettor {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  userName String
+  address  String
+  amount   String
+}
+
+model PredictionEvents {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  amount      String
+  prediction  String
+  txId        String
+  sender      String
+  roundNumber String
+  opCode      String
+}
+
+// model ClaimEvents {
+//   id          String @id @default(auto()) @map("_id") @db.ObjectId
+//   type        String
+//   amount      String
+//   prediction  String
+//   txId        String
+//   sender      String
+//   roundNumber String
+//   opCode      String
+// }
