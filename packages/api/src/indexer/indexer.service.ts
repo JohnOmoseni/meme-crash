@@ -4,6 +4,16 @@ import { BettorsService } from 'src/bettors/bettors.service';
 import { Cell, Slice, Address } from 'ton';
 const watchAddress = 'EQA2veDkV_wHV6itC03oMR_9XpDLafFop6tqcVtt_jiWQaHg';
 
+function base64ToHex(base64String) {
+  // Remove any padding characters (=) from the end of the base64 string
+  const cleanBase64 = base64String.replace(/=+$/, '');
+
+  // Convert base64 to a buffer
+  const buffer = Buffer.from(cleanBase64, 'base64');
+
+  // Convert the buffer to a hex string
+  return buffer.toString('hex');
+}
 function decodeInMsgBody(base64Body, transactionHash: string, sender) {
   try {
     // Parse the base64 body into a Cell
@@ -75,6 +85,11 @@ export class IndexerService implements OnModuleInit {
     await this.startIndexer();
   }
 
+  private async waitAndCallStartIndexer() {
+    await new Promise((resolve) => setTimeout(resolve, 10000));
+    await this.startIndexer();
+  }
+
   async startIndexer() {
     var requestOptions: any = {
       method: 'GET',
@@ -88,7 +103,7 @@ export class IndexerService implements OnModuleInit {
       .then((response) => response.json())
       .then(async (result) => {
         //console.log({ result });
-        const lastTx = result.transactions[0];
+        const lastTx = result.transactions[1];
 
         const txActionSuccess = lastTx.description.action.success;
         const txCompute_phSucess = lastTx.description.compute_ph.success;
@@ -101,6 +116,34 @@ export class IndexerService implements OnModuleInit {
         if (txActionSuccess && txCompute_phSucess) {
           const bettors = await (await this.BettorService.findAll()).val();
           console.log({ bettors });
+
+          const predictEvents = await (
+            await this.aceBaseService.readData(
+              'NewPredictEvents/' + base64ToHex(transactionHash),
+            )
+          ).val();
+          if (predictEvents) {
+            await this.waitAndCallStartIndexer();
+          } else {
+            const eventData = decodeInMsgBody(
+              messageContent.body,
+              transactionHash,
+              sender,
+            );
+            if (eventData.type === 'Predict') {
+              await this.aceBaseService
+                .createDataIfNotExists(
+                  'NewPredictEvents/' + base64ToHex(transactionHash),
+                  eventData,
+                  () => true,
+                )
+                .then(async (res) => {
+                  console.log('DATA SAVED');
+                  await this.waitAndCallStartIndexer();
+                })
+                .catch((err) => console.log({ err }));
+            }
+          }
         }
       })
       .catch((error) => console.log('error', error));

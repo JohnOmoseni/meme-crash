@@ -1,8 +1,8 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { AceBaseClient } from 'acebase-client';
 
 @Injectable()
-export class AcebaseService implements OnModuleInit {
+export class AcebaseService implements OnModuleInit, OnModuleDestroy {
   db: AceBaseClient;
   constructor() {
     this.db = new AceBaseClient({
@@ -12,6 +12,16 @@ export class AcebaseService implements OnModuleInit {
       https: false,
     });
   }
+  async onModuleDestroy() {
+    try {
+      // Cleanup logic
+
+      await this.db.auth.signOut();
+      return this.db.close();
+    } catch (error) {
+      console.error('Error during module destruction:', error);
+    }
+  }
   async onModuleInit() {
     await this.startDb()
       .then((res) => {
@@ -19,7 +29,7 @@ export class AcebaseService implements OnModuleInit {
       })
       .catch((err) => console.log(err));
   }
-  async startDb() {
+  private async startDb() {
     await this.db.ready();
     return await this.db.auth.signIn('admin', 'e5zpjHDy%kj#4HHT');
   }
@@ -33,14 +43,14 @@ export class AcebaseService implements OnModuleInit {
     return dbRef.get();
   }
 
-  async writeData(path: string, data: {}) {
+  private async writeData(path: string, data: {}) {
     const dbRef = this.getDBRef(path);
     return dbRef.set(data);
   }
 
   async updateData(path: string, updates: {}) {
     const dbRef = this.getDBRef(path);
-    const update = dbRef.update(updates);
+    const update = dbRef.update({ ...updates });
     return update;
   }
 
