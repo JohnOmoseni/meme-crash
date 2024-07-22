@@ -3,15 +3,11 @@ import { AcebaseService } from 'src/acebase/acebase.service';
 import { RoundsService } from 'src/rounds/rounds.service';
 
 @Injectable()
-export class ChartsService implements OnModuleDestroy, OnModuleInit {
-  constructor(
-    private readonly aceBaseService: AcebaseService,
-    private readonly roundsService: RoundsService,
-  ) {}
-  onModuleDestroy() {}
-  async onModuleInit() {
+export class ChartsService {
+  constructor(private readonly roundsService: RoundsService) {}
+  async createChart() {
     console.info("Before pause, we'll create the first round");
-    const round = await this.roundsService.createRounds();
+    const round = await this.roundsService.getLatestRound();
     // wait for 30 seconds
 
     const updatedRound = await this.roundsService.updatedRounds(round.round, {
@@ -45,7 +41,7 @@ export class ChartsService implements OnModuleDestroy, OnModuleInit {
   // once
   // check chart price and get paid
 
-  generateChartData(startPrice, targetPrice, steps, volatility) {
+  private generateChartData(startPrice, targetPrice, steps, volatility) {
     console.info(
       'Generating chart data',
       startPrice,

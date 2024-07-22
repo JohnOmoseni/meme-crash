@@ -9,6 +9,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { RoundsService } from 'src/rounds/rounds.service';
+import { ChartsService } from './charts.service';
 
 @WebSocketGateway(3440, {})
 export default class ChartGateway
@@ -17,7 +18,10 @@ export default class ChartGateway
   @WebSocketServer() server: Server;
   onlineUser = 0;
 
-  constructor(private readonly roundsService: RoundsService) {}
+  constructor(
+    private readonly roundsService: RoundsService,
+    private readonly chartService: ChartsService,
+  ) {}
   handleConnection(client: Socket) {
     this.onlineUser++;
     console.log('new user online', client.id);
@@ -81,7 +85,7 @@ export default class ChartGateway
           });
           this.countdownTimer(30);
           // create new round
-          const res = await this.roundsService.createRounds();
+          const res = await this.chartService.createChart();
           await this.handleGetAndEmitChart();
         }
       }
