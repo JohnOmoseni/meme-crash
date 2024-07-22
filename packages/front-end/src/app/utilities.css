@@ -1,0 +1,82 @@
+/* HEADER */
+.header {
+  box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border);
+}
+
+/* CARD */
+.card-container {
+  border-top: 1px solid var(--border);
+  background-image: linear-gradient(to bottom, #0d1223 40%, #020308 100%);
+  box-shadow: inset 0px -3.22px 9.67px 0px rgba(206, 206, 251, 0.1);
+}
+
+.marquee {
+  background-image: linear-gradient(to bottom, #0d1223 40%, #020308 100%);
+  box-shadow: inset 0px -3.22px 9.67px 0px rgba(206, 206, 251, 0.1);
+}
+
+/* BUTTON VARIANT */
+.btn-variant {
+  border: 1px solid var(--border);
+  background: linear-gradient(90deg, #fbaf00 0%, #ffec3c 100%);
+  box-shadow:
+    inset 0px -1px 10px 0px rgba(206, 206, 251, 0.1),
+    0px 2px 10px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* TEXT SHADOWS */
+.text-shadow-100 {
+  text-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* GRADIENTS */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    232deg,
+    #facc15 10.98%,
+    #f8f9ae 20.31%,
+    #dff9ae 60.17%
+  );
+}
+
+.bg-gradient {
+  background-image: linear-gradient(
+    80.52deg,
+    #86e6ac 20.3%,
+    #d8f9ae 80.17%,
+    #7190ff 100.31% /* #6663f6 150.98% */
+  );
+}
+
+/* TON BUTTON */
+.go1487791704 {
+  white-space: nowrap !important;
+}
+
+/* .snes-button {
+  background-color: #4eb6d9;
+  border: solid;
+  -o-border-image: var(--border-image);
+  border-image: var(--border-image);
+  border-image-outset: 6px;
+  border-image-repeat: initial;
+  border-image-slice: 12;
+  border-width: 12px;
+  color: #2c3e50;
+  padding: 4px 18px;
+  position: relative;
+  word-spacing: -0.3em;
+} */
+
+/* SCROLLBAR */
+.scrollbar-thin {
+  /* #17191e thumb #454e5b track */
+  scrollbar-color: initial initial;
+  scrollbar-color: var(--scrollbar-thumb, initial)
+    var(--scrollbar-track, initial);
+  scrollbar-width: thin;
+}

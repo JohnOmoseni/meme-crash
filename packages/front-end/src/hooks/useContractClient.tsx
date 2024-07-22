@@ -4,24 +4,24 @@ import { publicClient, walletClient } from "@/sdk/client";
 import {
 	MemeCashPool,
 	Predict,
-	storePredict
+	storePredict,
 } from "@/sdk/wrappers/MemeCrashPool";
 import { contractAddress } from "@/sdk/const";
 import { useTonConnect } from "./ueTonConnect";
-import { useTonClient } from "./useTonClient";
+// import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { Address, OpenedContract, beginCell } from "@ton/core";
 
 export default function useContractClient() {
-	const { client } = useTonClient();
+	// const { client } = useTonClient();
 	const { wallet, sender } = useTonConnect();
 
-	const contractClient = useAsyncInitialize(async () => {
-		if (!client || !wallet) return;
+	const client = "";
 
-		const contract = MemeCashPool.fromAddress(
-			Address.parse(contractAddress)
-		);
+	const contractClient = useAsyncInitialize(async () => {
+		// if (!client || !wallet) return;
+
+		const contract = MemeCashPool.fromAddress(Address.parse(contractAddress));
 
 		return await sender.send({
 			to: contract.address,
@@ -33,10 +33,10 @@ export default function useContractClient() {
 						queryId: BigInt(1),
 						amount: parseTon("0.1"),
 						roundNumber: BigInt(0),
-						predictionNumber: BigInt(100)
+						predictionNumber: BigInt(100),
 					})
 				)
-				.endCell()
+				.endCell(),
 		});
 	}, [client, wallet]);
 	return {
@@ -45,9 +45,7 @@ export default function useContractClient() {
 			predictionNumber: number,
 			roundNumber: number
 		) => {
-			const contract = MemeCashPool.fromAddress(
-				Address.parse(contractAddress)
-			);
+			const contract = MemeCashPool.fromAddress(Address.parse(contractAddress));
 
 			return await sender.send({
 				to: contract.address,
@@ -59,11 +57,11 @@ export default function useContractClient() {
 							queryId: BigInt(1),
 							amount: parseTon("0.1"),
 							roundNumber: BigInt(0),
-							predictionNumber: BigInt(100)
+							predictionNumber: BigInt(100),
 						})
 					)
-					.endCell()
+					.endCell(),
 			});
-		}
+		},
 	};
 }

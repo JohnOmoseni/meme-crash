@@ -1,9 +1,13 @@
-import React from "react";
+"use client";
 
-export default function Loading() {
-	return (
-		<div className="flex justify-center items-center w-full h-full">
-			loading...
-		</div>
-	);
+import FallbackLoader from "@/components/fallback/FallbackLoader";
+
+function Loading() {
+  return (
+    <div>
+      <FallbackLoader />
+    </div>
+  );
 }
+
+export default Loading;

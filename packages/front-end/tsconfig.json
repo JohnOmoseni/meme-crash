@@ -1,5 +1,4 @@
 {
-  
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -20,6 +19,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/images/*": ["./public/images/*"],
+      "@/svgs/*": ["./public/svgs/*"],
       "$/*": ["./../*"]
     }
   },
