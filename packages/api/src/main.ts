@@ -16,4 +16,6 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+bootstrap()
+  .then(() => console.log('Server started'))
+  .catch((err) => console.log(err));

@@ -7,12 +7,14 @@ import { AcebaseModule } from './acebase/acebase.module';
 import { ChartsModule } from './charts/charts.module';
 import { RoundsModule } from './rounds/rounds.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
     AcebaseModule,
     IndexerModule,
+    ScheduleModule.forRoot(),
     ChartsModule,
     BettorsModule,
     RoundsModule,

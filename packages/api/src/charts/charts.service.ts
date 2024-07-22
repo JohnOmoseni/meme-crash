@@ -13,29 +13,28 @@ export class ChartsService implements OnModuleDestroy, OnModuleInit {
     console.info("Before pause, we'll create the first round");
     const round = await this.roundsService.createRounds();
     // wait for 30 seconds
-    await new Promise((resolve) => setTimeout(resolve, 30000));
-    console.info('Round created', round);
-    const res = await this.roundsService.updatedRounds(round.round, {
+
+    const updatedRound = await this.roundsService.updatedRounds(round.round, {
       canJoinBet: false,
     });
-    // get all bettors
-    // const allRoundBettors = this.aceBaseService.readData('NewPredictEvent');
-
     const startPrice = 0;
     const targetPrice = this.generateRandomNumber(100, 1000);
     const steps = 50;
     const volatility = 0.1;
-    await this.roundsService.updatedRounds(round.round, {
-      canJoinBet: false,
-      chartTarget: targetPrice,
-      chart: this.generateChartData(startPrice, targetPrice, steps, volatility),
-      currentIndex: 0,
-    });
+    if (updatedRound.betsHasEnded)
+      await this.roundsService.updatedRounds(round.round, {
+        canJoinBet: false,
+        chartTarget: targetPrice,
+        chart: this.generateChartData(
+          startPrice,
+          targetPrice,
+          steps,
+          volatility,
+        ),
+        currentIndex: 0,
+      });
   }
 
-  onPriceChange() {
-    //once price change via chart  and check winners
-  }
   //on init create first round
   // wait for 30 sends
   // say all bets are done

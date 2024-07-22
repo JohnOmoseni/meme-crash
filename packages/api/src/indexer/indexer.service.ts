@@ -103,7 +103,7 @@ export class IndexerService implements OnModuleInit {
       .then((response) => response.json())
       .then(async (result) => {
         //console.log({ result });
-        const lastTx = result.transactions[1];
+        const lastTx = result.transactions[0];
 
         const txActionSuccess = lastTx.description.action.success;
         const txCompute_phSucess = lastTx.description.compute_ph.success;
