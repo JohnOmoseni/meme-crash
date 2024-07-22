@@ -31,7 +31,7 @@ export class AcebaseService implements OnModuleInit, OnModuleDestroy {
   }
   private async startDb() {
     await this.db.ready();
-    return await this.db.auth.signIn('admin', 'e5zpjHDy%kj#4HHT');
+    return await this.db.auth.signIn('admin', 'vnJ%CT#YP0kAykXX');
   }
 
   private getDBRootRef = () => this.db.root;

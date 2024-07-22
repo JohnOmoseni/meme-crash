@@ -17,18 +17,13 @@ export class ChartsService {
     const targetPrice = this.generateRandomNumber(100, 1000);
     const steps = 50;
     const volatility = 0.1;
-    if (updatedRound.betsHasEnded)
-      await this.roundsService.updatedRounds(round.round, {
-        canJoinBet: false,
-        chartTarget: targetPrice,
-        chart: this.generateChartData(
-          startPrice,
-          targetPrice,
-          steps,
-          volatility,
-        ),
-        currentIndex: 0,
-      });
+
+    await this.roundsService.updatedRounds(round.round, {
+      canJoinBet: false,
+      chartTarget: targetPrice,
+      chart: this.generateChartData(startPrice, targetPrice, steps, volatility),
+      currentIndex: 0,
+    });
   }
 
   //on init create first round

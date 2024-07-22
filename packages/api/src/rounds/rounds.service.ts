@@ -16,7 +16,16 @@ export class RoundsService {
   constructor(private readonly aceBaseService: AcebaseService) {}
   async createRounds() {
     const data = (await this.aceBaseService.readData('rounds')).val();
-    if (data) {
+    console.info(data !== null);
+    if (data === null) {
+      const res = await this.aceBaseService.createDataIfNotExists(
+        'rounds/' + '1',
+        { round: (1).toString(), canJoinBet: true, betsHasEnded: false },
+        () => true,
+      );
+
+      return res;
+    } else {
       const { keys } = objectToArrays(data);
       const newRoundNumber = keys.length + 1;
       const lastKey = keys.length > 1 ? keys[keys.length - 1] : keys[0];
@@ -36,15 +45,6 @@ export class RoundsService {
         return lastRound;
       }
     }
-    if (!data) {
-      const res = await this.aceBaseService.createDataIfNotExists(
-        'rounds/' + '1',
-        { round: (1).toString(), canJoinBet: true, betsHasEnded: false },
-        () => true,
-      );
-
-      return res;
-    }
   }
   async updatedRounds(rounds: number, updateObj: {}) {
     // console.info('updating rounds', rounds, updateObj);
@@ -59,10 +59,14 @@ export class RoundsService {
   }
   async getLatestRound() {
     const data = (await this.aceBaseService.readData('rounds')).val();
-    const { keys } = objectToArrays(data);
-    const lastKey = keys.length > 1 ? keys[keys.length - 1] : keys[0];
-    //console.info({ lastKey });
-    return data[lastKey];
+    if (data === null || data === undefined) {
+      return null;
+    } else {
+      const { keys } = objectToArrays(data);
+      const lastKey = keys.length > 1 ? keys[keys.length - 1] : keys[0];
+      //console.info({ lastKey });
+      return data[lastKey];
+    }
   }
 
   onEndOfRound() {
