@@ -3,29 +3,20 @@
 import NavLinks from "./NavLinks";
 import { motion } from "framer-motion";
 import { navLinks } from "@/constants";
-import { Dispatch, SetStateAction } from "react";
 import { Close } from "@/constants/icons";
 import { animateFn, revealMenu, slideinVariant } from "@/lib/animate";
+import { useAppDispatch } from "@/types";
+import { setOpenMenu } from "@/redux/features/appSlice";
 
-type Props = {
-  activeModal: string;
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-  setOpenMenu: Dispatch<SetStateAction<boolean>>;
-};
+function Menu() {
+  const dispatch = useAppDispatch();
 
-function Menu({
-  activeModal,
-  setOpenMenu,
-  setShowModal,
-  setActiveModal,
-}: Props) {
   return (
     <motion.div
       style={{ zIndex: 9999 }}
       className="fixed inset-0 block h-dvh w-full bg-black/30 backdrop-blur-sm md:hidden"
       {...animateFn(revealMenu)}
-      onClick={() => setOpenMenu(false)}
+      onClick={() => dispatch(setOpenMenu(false))}
     >
       <motion.div
         {...animateFn(slideinVariant)}
@@ -42,16 +33,7 @@ function Menu({
 
         <nav className="flex-column mx-auto flex-1 !items-center gap-8 pt-[10%] text-xl">
           {navLinks.map((link, idx) => (
-            <NavLinks
-              key={idx}
-              {...link}
-              menu
-              idx={idx}
-              activeModal={activeModal}
-              setOpenMenu={setOpenMenu}
-              setActiveModal={setActiveModal}
-              setShowModal={setShowModal}
-            />
+            <NavLinks key={idx} {...link} menu idx={idx} />
           ))}
         </nav>
       </motion.div>

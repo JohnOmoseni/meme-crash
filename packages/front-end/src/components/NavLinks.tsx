@@ -1,10 +1,10 @@
 import { animateFn, linksAni } from "@/lib/animate";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { useAppDispatch, useAppSelector } from "@/types";
+import { setActiveModal, setOpenMenu } from "@/redux/features/appSlice";
 
 export type NavLinkProps = {
   name: string;
@@ -12,35 +12,19 @@ export type NavLinkProps = {
   href: string;
   idx?: number;
   menu?: boolean;
-  activeModal?: string;
   icon?: StaticImageData;
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-  setOpenMenu: Dispatch<SetStateAction<boolean>>;
 };
 
-function NavLinks({
-  name,
-  href,
-  menu,
-  tag,
-  icon,
-  idx,
-  activeModal,
-  setOpenMenu,
-  setActiveModal,
-  setShowModal,
-}: NavLinkProps) {
+function NavLinks({ name, href, menu, tag, icon, idx }: NavLinkProps) {
   const navlink = "relative p-1 tracking-snug whitespace-nowrap ";
   const menulink = "";
 
-  const pathname = usePathname();
-  const isActive = pathname === href;
+  const { activeModal, openMenu } = useAppSelector((state) => state.appState);
+  const dispatch = useAppDispatch();
 
   const handleClick = (tag: string) => {
-    if (menu && setOpenMenu) setOpenMenu(false);
-    setActiveModal(tag);
-    setShowModal(true);
+    if (menu && openMenu) dispatch(setOpenMenu(false));
+    dispatch(setActiveModal({ activeModal: tag, showModal: true }));
   };
 
   return (
@@ -63,7 +47,6 @@ function NavLinks({
         className={cn(
           "font-star font-bold uppercase transition-colors group-hover:text-secondary-foreground",
           menu ? menulink : navlink,
-          isActive && "active-modal",
           activeModal === tag && "active-modal",
         )}
       >

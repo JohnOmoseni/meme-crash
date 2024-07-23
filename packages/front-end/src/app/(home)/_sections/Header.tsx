@@ -18,20 +18,11 @@ import {
 } from "@tonconnect/ui-react";
 import Marquee from "./Marquee";
 import { Gradient } from "@/components/animations/Gradient";
+import { useAppDispatch } from "@/types";
+import { setOpenMenu } from "@/redux/features/appSlice";
 
-type HeaderProps = {
-  activeModal: string;
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-  setOpenMenu: Dispatch<SetStateAction<boolean>>;
-};
-
-const Header = ({
-  activeModal,
-  setOpenMenu,
-  setShowModal,
-  setActiveModal,
-}: HeaderProps) => {
+const Header = () => {
+  const dispatch = useAppDispatch();
   return (
     <>
       <header
@@ -61,21 +52,12 @@ const Header = ({
           </div>
 
           <div className="md:row-flex hidden w-full gap-7">
-            {navLinks?.map((link, idx) => (
-              <NavLinks
-                key={idx}
-                {...link}
-                activeModal={activeModal}
-                setOpenMenu={setOpenMenu}
-                setActiveModal={setActiveModal}
-                setShowModal={setShowModal}
-              />
-            ))}
+            {navLinks?.map((link, idx) => <NavLinks key={idx} {...link} />)}
           </div>
 
           <div
             className="row-flex group ml-auto md:hidden"
-            onClick={() => setOpenMenu && setOpenMenu(true)}
+            onClick={() => dispatch(setOpenMenu(true))}
           >
             <Menu
               size={22}

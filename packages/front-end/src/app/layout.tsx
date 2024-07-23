@@ -4,6 +4,7 @@ import { Press_Start_2P } from "next/font/google";
 import dynamic from "next/dynamic";
 import { Toaster } from "@/components/ui/toaster";
 import ReduxProvider from "@/providers/ReduxProvider";
+import LayoutProvider from "@/providers/LayoutProvider";
 // import "snes.css/dist/snes.min.css";
 import "./globals.css";
 import "./index.css";
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body className={PressStart2P.className}>
         <div className="wrapper">
           <GlobalProvider>
-            <ReduxProvider>{children}</ReduxProvider>
+            <ReduxProvider>
+              <LayoutProvider>{children}</LayoutProvider>
+            </ReduxProvider>
           </GlobalProvider>
           <Toaster />
         </div>

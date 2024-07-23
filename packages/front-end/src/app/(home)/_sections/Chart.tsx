@@ -8,17 +8,10 @@ import {
   priceScaleOptions,
   timeScaleOptions,
 } from "@/constants/chart";
+import { useAppSelector } from "@/types";
 
 export const ChartComponent = (props: any) => {
-  const {
-    colors: {
-      backgroundColor = "white",
-      lineColor = "#2962FF",
-      textColor = "black",
-      areaTopColor = "#2962FF",
-      areaBottomColor = "rgba(41, 98, 255, 0.28)",
-    } = {},
-  } = props;
+  const { screenSize } = useAppSelector((state) => state.appState);
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<HTMLDivElement>(null);
@@ -27,8 +20,11 @@ export const ChartComponent = (props: any) => {
     if (chartRef.current) {
       const handleResize = () => {
         chart.applyOptions({
-          width: chartContainerRef?.current?.clientWidth,
-          height: chartContainerRef?.current?.clientWidth,
+          width:
+            screenSize < 648
+              ? screenSize
+              : chartContainerRef?.current?.clientWidth,
+          height: chartContainerRef?.current?.clientHeight,
         });
       };
 
@@ -45,15 +41,12 @@ export const ChartComponent = (props: any) => {
         },
 
         crosshair: {
-          // Change mode from default 'magnet' to 'normal'.
-          // Allows the crosshair to move freely without snapping to datapoints
           mode: CrosshairMode.Normal,
           // Vertical crosshair line (showing Date in Label)
           vertLine: {
-            visible: false,
+            color: "#9B7DFF",
+            // visible: false,
           },
-
-          // Horizontal crosshair line (showing Price in Label)
           horzLine: {
             color: "#9B7DFF",
             labelBackgroundColor: "#9B7DFF",
@@ -100,7 +93,7 @@ export const ChartComponent = (props: any) => {
         chartRef.current && chart.remove();
       };
     }
-  }, [backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]);
+  }, [screenSize]);
 
   return (
     <div ref={chartContainerRef} className="relative h-full w-full">
