@@ -81,13 +81,19 @@
   scrollbar-width: thin;
 }
 
-/* LIGHTWEIGHT CHART - ATTRIBUTION LINK */
-
-/* Styles for attribution message */
+/* LIGHTWEIGHT CHART - Styles for attribution message */
 .lw-attribution {
   position: absolute;
   left: 0px;
   top: 0.2rem;
   z-index: 3; /* place above the charts */
   padding: 10px 0px 0px 12px;
+}
+
+/* EMOJI PICKER */
+.showPicker {
+  left: auto !important;
+  right: 0 !important;
+  bottom: 25% !important;
+  z-index: 90 !important;
 }

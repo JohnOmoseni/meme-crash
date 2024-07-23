@@ -99,7 +99,7 @@ function ChatInput() {
         "row-flex mt-auto w-full overflow-hidden border-t border-border border-opacity-80 bg-black/80 py-2 pl-2 pr-3 sm:min-h-[3rem]",
       )}
     >
-      <form className="row-flex relative w-full gap-3" onSubmit={handleSubmit}>
+      <form className="row-flex w-full gap-3" onSubmit={handleSubmit}>
         <div className="flex w-full flex-1">
           <Textarea
             typeof="text"
