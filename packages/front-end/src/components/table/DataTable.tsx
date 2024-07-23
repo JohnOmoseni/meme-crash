@@ -37,10 +37,13 @@ export function DataTable<TData, TValue>({
     <Table className="overflow-hidden rounded-lg">
       <TableHeader className="shad-table-row-header">
         {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id} className="shad-table-row">
+          <TableRow
+            key={headerGroup.id}
+            className="border-b border-border py-2 hover:bg-transparent"
+          >
             {headerGroup.headers.map((header) => {
               return (
-                <TableHead key={header.id} className="text-center">
+                <TableHead key={header.id} className="text-center text-base">
                   {header.isPlaceholder
                     ? null
                     : flexRender(

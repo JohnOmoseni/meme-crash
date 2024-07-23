@@ -20,10 +20,18 @@ import Marquee from "./Marquee";
 import { Gradient } from "@/components/animations/Gradient";
 
 type HeaderProps = {
+  activeModal: string;
+  setActiveModal: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
   setOpenMenu: Dispatch<SetStateAction<boolean>>;
 };
 
-const Header = ({ setOpenMenu }: HeaderProps) => {
+const Header = ({
+  activeModal,
+  setOpenMenu,
+  setShowModal,
+  setActiveModal,
+}: HeaderProps) => {
   return (
     <>
       <header
@@ -53,7 +61,16 @@ const Header = ({ setOpenMenu }: HeaderProps) => {
           </div>
 
           <div className="md:row-flex hidden w-full gap-7">
-            {navLinks?.map((link, idx) => <NavLinks key={idx} {...link} />)}
+            {navLinks?.map((link, idx) => (
+              <NavLinks
+                key={idx}
+                {...link}
+                activeModal={activeModal}
+                setOpenMenu={setOpenMenu}
+                setActiveModal={setActiveModal}
+                setShowModal={setShowModal}
+              />
+            ))}
           </div>
 
           <div

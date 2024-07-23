@@ -7,10 +7,10 @@ function Standings() {
     <>
       <DataTable columns={columns} data={playerboard} />
 
-      <div className="table-actions mt-auto w-full">
-        <span className="text-base leading-5">Players: 10</span>
-        <span className="text-base leading-5">Round: 1222395</span>
-        <span className="text-base leading-5">Viewers: 1</span>
+      <div className="table-actions mt-auto w-full text-base max-sm:text-sm">
+        <span className="leading-5">Players: 10</span>
+        <span className="leading-5">Round: 1222395</span>
+        <span className="leading-5">Viewers: 1</span>
       </div>
     </>
   );

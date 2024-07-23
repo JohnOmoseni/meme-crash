@@ -5,8 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
 
 interface SelectDropdownProps {
   items: any[];
@@ -48,9 +48,9 @@ export default function SelectDropdown({
           items &&
           items.map((item, idx) => (
             <SelectItem
-              value={item.name}
-              key={item?._id}
-              className={twMerge("row-flex !justify-start", itemContainerStyle)}
+              value={item}
+              key={idx}
+              className={cn("row-flex-start", itemContainerStyle)}
             >
               {renderItem ? renderItem(item?.name) : item?.name}
             </SelectItem>

@@ -8,7 +8,6 @@ import Chat from "./Chat";
 function ChatMain({ containerClassName }: { containerClassName?: string }) {
   const { chatLog, isWalletConnected } = useAppSelector((state) => state.chat);
 
-  const dispatch = useAppDispatch();
   const elemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,11 +17,11 @@ function ChatMain({ containerClassName }: { containerClassName?: string }) {
   return (
     <div
       className={cn(
-        "chat-main scrollbar-inner relative flex h-full min-h-[30vh] w-full flex-1 flex-col overflow-hidden bg-background-100",
+        "chat-main scrollbar-inner relative flex h-full w-full flex-1 flex-col overflow-hidden bg-background-100 md:max-h-[23.4vh]",
         containerClassName,
       )}
     >
-      <div className="w-full overflow-y-auto px-4 pb-2 pt-4">
+      <div className="flex w-full flex-col gap-4 overflow-y-auto px-4 pb-1 pt-2.5">
         {chatLog?.length > 0 &&
           chatLog?.map((chat, idx) => {
             if ("timestamp" in chat) {

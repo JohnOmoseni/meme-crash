@@ -29,7 +29,7 @@ export const ButtonVariant = ({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "border-border-variant row-flex to-yellow-20 my-1 inline-flex h-10 w-64 whitespace-nowrap rounded-md border-2 bg-gradient-to-r from-yellow-400 via-yellow-300 px-6 py-2 font-star text-lg uppercase tracking-wide text-black subpixel-antialiased shadow-inner filter transition duration-150 hover:brightness-90 active:translate-y-0.5 active:brightness-90 disabled:pointer-events-none disabled:opacity-50 2xl:h-12 2xl:py-3",
+        "row-flex my-1 inline-flex h-10 w-64 whitespace-nowrap rounded-md border-2 border-border-variant bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 px-6 py-2 font-star text-lg uppercase tracking-wide text-black subpixel-antialiased shadow-inner filter transition duration-150 hover:brightness-90 active:translate-y-0.5 active:brightness-90 disabled:pointer-events-none disabled:opacity-50 2xl:h-12 2xl:py-3",
         className,
       )}
     >

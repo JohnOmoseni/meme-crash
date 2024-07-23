@@ -8,20 +8,28 @@ import { Close } from "@/constants/icons";
 import { animateFn, revealMenu, slideinVariant } from "@/lib/animate";
 
 type Props = {
+  activeModal: string;
+  setActiveModal: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
   setOpenMenu: Dispatch<SetStateAction<boolean>>;
 };
 
-function Menu({ setOpenMenu }: Props) {
+function Menu({
+  activeModal,
+  setOpenMenu,
+  setShowModal,
+  setActiveModal,
+}: Props) {
   return (
     <motion.div
-      style={{ zIndex: 999 }}
+      style={{ zIndex: 9999 }}
       className="fixed inset-0 block h-dvh w-full bg-black/30 backdrop-blur-sm md:hidden"
       {...animateFn(revealMenu)}
       onClick={() => setOpenMenu(false)}
     >
       <motion.div
         {...animateFn(slideinVariant)}
-        className="menu flex-column fixed right-0 top-0 isolate h-dvh w-[80%] max-w-[500px] overflow-hidden bg-background px-[4%] backdrop-blur-sm"
+        className="menu flex-column fixed right-0 top-0 isolate h-dvh w-[80%] max-w-[400px] overflow-hidden bg-background px-[4%] backdrop-blur-sm"
         onClick={(e) => e.stopPropagation()}
       >
         <span
@@ -29,17 +37,20 @@ function Menu({ setOpenMenu }: Props) {
           onClick={() => setOpenMenu(false)}
           title="close-menu"
         >
-          <Close size="22" className="" fill="#333" />
+          <Close size="22" className="cursor-pointer text-foreground" />
         </span>
 
-        <nav className="flex-column mx-auto flex-1 gap-8 pt-[10%] text-xl">
+        <nav className="flex-column mx-auto flex-1 !items-center gap-8 pt-[10%] text-xl">
           {navLinks.map((link, idx) => (
             <NavLinks
               key={idx}
               {...link}
               menu
               idx={idx}
-              setOpenMenu={() => setOpenMenu(false)}
+              activeModal={activeModal}
+              setOpenMenu={setOpenMenu}
+              setActiveModal={setActiveModal}
+              setShowModal={setShowModal}
             />
           ))}
         </nav>

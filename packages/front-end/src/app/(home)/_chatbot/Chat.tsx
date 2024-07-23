@@ -14,13 +14,13 @@ function Chat({ chat }: { chat: ChatProps }) {
   useEffect(() => {
     elemRef?.current &&
       !isWalletConnected &&
-      elemRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      elemRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chatLog]);
 
   return (
     <div
       ref={elemRef}
-      className={`group relative my-5 flex w-full items-center first:mt-2 last:mb-7 ${
+      className={`group relative mt-4 flex w-full items-center first:mt-2 last:mb-7 ${
         you ? "flex-row-reverse" : "flex-row"
       } !justify-start`}
     >
@@ -36,7 +36,7 @@ function Chat({ chat }: { chat: ChatProps }) {
       </div>
       <div
         className={cn(
-          "absolute top-full mt-1.5 text-xs font-light text-grey",
+          "absolute top-full mt-1 text-xs font-light text-grey",
           you ? "right-2" : "left-2",
         )}
       >

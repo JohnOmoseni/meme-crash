@@ -11,55 +11,52 @@ import {
   AlertDialogAction,
   AlertDialogDescription,
 } from "@radix-ui/react-alert-dialog";
-import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { Close } from "@/constants/icons";
 
 type AlertModal = {
+  showModal: boolean;
   title?: string;
   description?: string;
-  dialogContent?: ReactNode;
-  dialogAction?: ReactNode;
+  children?: ReactNode;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 };
 
 export function AlertModal({
   title,
   description,
-  dialogContent,
-  dialogAction,
+  showModal,
+  setShowModal,
+  children,
 }: AlertModal) {
-  const [openModal, setOpenModal] = useState(true);
-  const router = useRouter();
-
   const closeModal = () => {
-    setOpenModal(false);
-    router.push("");
+    setShowModal(false);
   };
 
   return (
-    <AlertDialog open={openModal} onOpenChange={setOpenModal}>
+    <AlertDialog open={showModal} onOpenChange={setShowModal}>
       {/* we will trigger the opening of the dialog somewhere else */}
 
-      <AlertDialogContent className="max-h-[360px] min-h-[200px] min-w-[300px] max-w-lg items-center overflow-y-auto rounded-lg bg-background px-4 py-4 text-foreground shadow-sm sm:px-6">
+      <AlertDialogContent className="shad-alert-dialog scrollbar-inner mx-auto max-h-[380px] min-h-[200px] max-w-lg items-center overflow-y-auto rounded-lg px-4 py-4 shadow-md max-sm:w-[85%] sm:min-w-[300px] sm:px-6">
         <span
-          className="icon absolute right-3 top-3 cursor-pointer text-foreground transition-colors active:scale-95"
+          className="icon absolute right-3 top-3 text-foreground transition-colors active:scale-95"
           onClick={closeModal}
           title="close"
         >
-          <Close size="20" fill="#111" />
+          <Close size="20" className="text-grey" />
         </span>
         <AlertDialogHeader>
-          <AlertDialogTitle className="my-3 text-center text-2xl capitalize">
+          <AlertDialogTitle className="text-left text-2xl capitalize">
             {title}
           </AlertDialogTitle>
         </AlertDialogHeader>
 
         <AlertDialogDescription>{description}</AlertDialogDescription>
 
-        {dialogContent && <div className="">{dialogContent}</div>}
+        {children}
 
         <AlertDialogFooter>
-          <AlertDialogAction>{dialogAction}</AlertDialogAction>
+          {/* <AlertDialogAction>{dialogAction}</AlertDialogAction> */}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

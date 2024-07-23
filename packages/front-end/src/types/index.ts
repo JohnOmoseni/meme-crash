@@ -1,10 +1,18 @@
 import { AppDispatch, RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { ColumnDef } from "@tanstack/react-table";
+import { ReactNode } from "react";
 
 export type TableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+};
+
+export type TabProps = {
+  id: string;
+  activeModal: string;
+  children: ReactNode;
+  className?: string;
 };
 
 export type ChatProps = {

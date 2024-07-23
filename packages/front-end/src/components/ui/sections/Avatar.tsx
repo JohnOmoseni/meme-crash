@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/lib/utils";
 
 type AvatarProps = {
   src?: string;
@@ -10,8 +10,8 @@ type AvatarProps = {
 function AvatarWrapper({ src, fallback, containerClassName }: AvatarProps) {
   return (
     <Avatar
-      className={twMerge(
-        "grid bg-background-200 transition-colors transition-sm hover:scale-95",
+      className={cn(
+        "transition-sm grid bg-card transition-colors hover:scale-95",
         containerClassName,
       )}
     >

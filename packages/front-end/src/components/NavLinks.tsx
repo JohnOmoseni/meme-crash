@@ -4,29 +4,51 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
+import { Dispatch, SetStateAction } from "react";
 
 export type NavLinkProps = {
   name: string;
+  tag?: string;
   href: string;
   idx?: number;
   menu?: boolean;
+  activeModal?: string;
   icon?: StaticImageData;
-  setOpenMenu?: () => void;
+  setActiveModal: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setOpenMenu: Dispatch<SetStateAction<boolean>>;
 };
 
-function NavLinks({ name, href, menu, icon, idx, setOpenMenu }: NavLinkProps) {
+function NavLinks({
+  name,
+  href,
+  menu,
+  tag,
+  icon,
+  idx,
+  activeModal,
+  setOpenMenu,
+  setActiveModal,
+  setShowModal,
+}: NavLinkProps) {
   const navlink = "relative p-1 tracking-snug whitespace-nowrap ";
   const menulink = "";
 
   const pathname = usePathname();
   const isActive = pathname === href;
 
+  const handleClick = (tag: string) => {
+    if (menu && setOpenMenu) setOpenMenu(false);
+    setActiveModal(tag);
+    setShowModal(true);
+  };
+
   return (
     <Link
       href={href}
       {...(menu && animateFn(linksAni, idx))}
-      onClick={() => setOpenMenu && setOpenMenu()}
-      className="flex-column !items-center"
+      onClick={() => handleClick(tag!)}
+      className="flex-column group !items-center"
     >
       <motion.span>
         <Image
@@ -39,9 +61,10 @@ function NavLinks({ name, href, menu, icon, idx, setOpenMenu }: NavLinkProps) {
       </motion.span>
       <motion.span
         className={cn(
-          "hover:text-secondary-foreground font-star font-bold uppercase transition-colors",
+          "font-star font-bold uppercase transition-colors group-hover:text-secondary-foreground",
           menu ? menulink : navlink,
-          isActive && "text-foreground-variant font-semibold",
+          isActive && "active-modal",
+          activeModal === tag && "active-modal",
         )}
       >
         {name}

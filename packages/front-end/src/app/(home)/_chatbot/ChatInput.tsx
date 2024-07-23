@@ -19,7 +19,6 @@ import Picker from "@emoji-mart/react";
 function ChatInput() {
   const [text, setText] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const { screenSize } = useAppSelector((state) => state.appState);
 
   const { chatLog, isWalletConnected } = useAppSelector((state) => state.chat);
@@ -38,7 +37,7 @@ function ChatInput() {
     const textarea = textareaRef?.current;
 
     // max no of rows
-    const maxRows = 5;
+    const maxRows = 3;
     const lineHeight = parseInt(
       window.getComputedStyle(textarea).lineHeight,
       10,
@@ -49,7 +48,7 @@ function ChatInput() {
     );
 
     textarea.rows = rows;
-    if (rows >= 5) {
+    if (rows >= 3) {
       textarea.style.overflowY = "auto";
     }
   };
@@ -97,7 +96,7 @@ function ChatInput() {
   return (
     <div
       className={cn(
-        "row-flex w-full overflow-hidden border-t border-border border-opacity-80 bg-black/80 py-2 pl-2 pr-3 sm:min-h-[3rem]",
+        "row-flex mt-auto w-full overflow-hidden border-t border-border border-opacity-80 bg-black/80 py-2 pl-2 pr-3 sm:min-h-[3rem]",
       )}
     >
       <form className="row-flex relative w-full gap-3" onSubmit={handleSubmit}>
@@ -114,13 +113,13 @@ function ChatInput() {
             }
             rows={1}
             className={cn(
-              "min-h-0 flex-1 resize-none !whitespace-pre-wrap shadow-none placeholder:text-sm placeholder:text-foreground-100",
+              "min-h-0 flex-1 resize-none !whitespace-pre-wrap shadow-none placeholder:text-sm placeholder:text-grey",
             )}
           />
         </div>
 
         <div className="row-flex gap-3">
-          <div title="emoji" className="z-[999] hover:text-slate-800">
+          <div title="emoji" className="z-[99] hover:text-slate-800">
             <EmojiSmile
               color="#999"
               className=""
