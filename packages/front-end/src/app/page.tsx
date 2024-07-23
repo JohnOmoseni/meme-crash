@@ -7,11 +7,11 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import PlaceBet from "./(home)/_sections/PlaceBet";
-import CandlestickChart from "./(home)/_sections/Chart";
 import Standings from "./(home)/_sections/Standings";
 import Announcement from "./(home)/_sections/Announcement";
-import { AlertModal } from "@/components/ui/sections/AlertModal";
 import ModalPanel from "@/components/modals/ModalPanel";
+import { AlertModal } from "@/components/ui/sections/AlertModal";
+import { CandlestickChart } from "./(home)/_sections/Chart";
 
 const Header = dynamic(() => import("./(home)/_sections/Header"), {
   ssr: false,
@@ -62,15 +62,12 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-[1920px] justify-center sm:w-[96%]">
           <div className="flex-column md:grid-layout-md gap-x-4 gap-y-6 sm:grid sm:grid-cols-2 md:grid-cols-3">
             <div className="flex h-full w-full flex-col gap-4 max-sm:h-dvh sm:col-span-1 md:col-span-2 lg:flex-row">
-              {/* <CandlestickChart /> */}
-              <PlaceBet />
+              <CandlestickChart />
               <PlaceBet />
             </div>
-
             <div className="data-table card flex-column table w-full grow gap-1 max-sm:h-[70vh] sm:col-span-1 sm:row-span-2 sm:h-full">
               <Standings />
             </div>
-
             <div className="card row-span-2 max-h-[50vh] w-full sm:col-span-2">
               <Announcement />
             </div>

@@ -1,38 +1,115 @@
+import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import React, { useEffect, useRef } from "react";
-import { createChart, LineStyle } from "lightweight-charts";
+import {
+  candlestickData,
+  chartOptions,
+  myPriceFormatter,
+} from "@/constants/chart";
 
-const CandlestickChart = () => {
+export const ChartComponent = (props: any) => {
+  const {
+    colors: {
+      backgroundColor = "white",
+      lineColor = "#2962FF",
+      textColor = "black",
+      areaTopColor = "#2962FF",
+      areaBottomColor = "rgba(41, 98, 255, 0.28)",
+    } = {},
+  } = props;
+
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const chart = createChart(chartContainerRef.current!, {
-      width: 600,
-      height: 300,
-    });
-    const candlestickSeries = chart.addCandlestickSeries();
+    if (chartContainerRef.current) {
+      const handleResize = () => {
+        chart.applyOptions({ width: chartContainerRef?.current?.clientWidth });
+      };
 
-    const handleResize = () => {
+      const chart = createChart(
+        chartContainerRef?.current!,
+        chartOptions(chartContainerRef),
+      );
+      chart.timeScale().fitContent();
+
+      // Apply the custom priceFormatter to the chart
       chart.applyOptions({
-        width: chartContainerRef?.current?.clientWidth,
+        localization: {
+          priceFormatter: myPriceFormatter,
+        },
+
+        crosshair: {
+          // Change mode from default 'magnet' to 'normal'.
+          // Allows the crosshair to move freely without snapping to datapoints
+          mode: CrosshairMode.Normal,
+
+          // Vertical crosshair line (showing Date in Label)
+          vertLine: {
+            color: "#C3BCDB44",
+            labelBackgroundColor: "#9B7DFF",
+          },
+
+          // Horizontal crosshair line (showing Price in Label)
+          horzLine: {
+            color: "#9B7DFF",
+            labelBackgroundColor: "#9B7DFF",
+          },
+        },
       });
-    };
 
-    candlestickSeries.setData([
-      // Add more data points here
-      { time: "2023-07-01", open: 100, high: 120, low: 80, close: 110 },
-    ]);
+      // Setting the border color for the vertical axis
+      chart.priceScale("right").applyOptions({
+        borderColor: "#71649C",
+      });
 
-    chart.timeScale().fitContent();
+      // Setting the border color for the horizontal axis
+      chart.timeScale().applyOptions({
+        borderColor: "#71649C",
+      });
 
-    window.addEventListener("resize", handleResize);
+      // Convert the candlestick data for use with a line series
+      const lineData = candlestickData.map((datapoint) => ({
+        time: datapoint.time,
+        value: (datapoint.close + datapoint.open) / 2,
+      }));
 
-    return () => {
-      chart.remove();
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      // Add an area series to the chart, - Adding this before we add the candlestick chart so that it will appear beneath the candlesticks
+      const areaSeries = chart.addAreaSeries({
+        lastValueVisible: false, // hide the last value marker for this series
+        crosshairMarkerVisible: false, // hide the crosshair marker for this series
+        lineColor: "transparent", // hide the line
+        topColor: "rgba(56, 33, 110,0.6)",
+        bottomColor: "rgba(56, 33, 110, 0.1)",
+      });
 
-  return <div ref={chartContainerRef} className="w-full grow"></div>;
+      // Create the Main Series (Candlesticks)
+      const mainSeries = chart.addCandlestickSeries();
+
+      // Set the data for the Main Series
+      mainSeries.setData(candlestickData);
+      // Set the data for the Area Series
+      areaSeries.setData(lineData);
+
+      // Changing the Candlestick colors
+      mainSeries.applyOptions({
+        wickUpColor: "rgb(54, 116, 217)",
+        upColor: "rgb(54, 116, 217)",
+        wickDownColor: "rgb(225, 50, 85)",
+        downColor: "rgb(225, 50, 85)",
+        borderVisible: false,
+      });
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        chartContainerRef.current && chart.remove();
+      };
+    }
+  }, [backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]);
+
+  return <div ref={chartContainerRef} />;
 };
 
-export default CandlestickChart;
+export function CandlestickChart(props: any) {
+  return <ChartComponent {...props}></ChartComponent>;
+}
