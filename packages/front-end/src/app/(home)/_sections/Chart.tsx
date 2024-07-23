@@ -3,7 +3,10 @@ import React, { useEffect, useRef } from "react";
 import {
   candlestickData,
   chartOptions,
+  mainSeriesOptions,
   myPriceFormatter,
+  priceScaleOptions,
+  timeScaleOptions,
 } from "@/constants/chart";
 
 export const ChartComponent = (props: any) => {
@@ -18,15 +21,19 @@ export const ChartComponent = (props: any) => {
   } = props;
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (chartContainerRef.current) {
+    if (chartRef.current) {
       const handleResize = () => {
-        chart.applyOptions({ width: chartContainerRef?.current?.clientWidth });
+        chart.applyOptions({
+          width: chartContainerRef?.current?.clientWidth,
+          height: chartContainerRef?.current?.clientWidth,
+        });
       };
 
       const chart = createChart(
-        chartContainerRef?.current!,
+        chartRef?.current!,
         chartOptions(chartContainerRef),
       );
       chart.timeScale().fitContent();
@@ -41,11 +48,9 @@ export const ChartComponent = (props: any) => {
           // Change mode from default 'magnet' to 'normal'.
           // Allows the crosshair to move freely without snapping to datapoints
           mode: CrosshairMode.Normal,
-
           // Vertical crosshair line (showing Date in Label)
           vertLine: {
-            color: "#C3BCDB44",
-            labelBackgroundColor: "#9B7DFF",
+            visible: false,
           },
 
           // Horizontal crosshair line (showing Price in Label)
@@ -57,14 +62,10 @@ export const ChartComponent = (props: any) => {
       });
 
       // Setting the border color for the vertical axis
-      chart.priceScale("right").applyOptions({
-        borderColor: "#71649C",
-      });
+      chart.priceScale("right").applyOptions(priceScaleOptions);
 
       // Setting the border color for the horizontal axis
-      chart.timeScale().applyOptions({
-        borderColor: "#71649C",
-      });
+      chart.timeScale().applyOptions(timeScaleOptions);
 
       // Convert the candlestick data for use with a line series
       const lineData = candlestickData.map((datapoint) => ({
@@ -90,24 +91,23 @@ export const ChartComponent = (props: any) => {
       areaSeries.setData(lineData);
 
       // Changing the Candlestick colors
-      mainSeries.applyOptions({
-        wickUpColor: "rgb(54, 116, 217)",
-        upColor: "rgb(54, 116, 217)",
-        wickDownColor: "rgb(225, 50, 85)",
-        downColor: "rgb(225, 50, 85)",
-        borderVisible: false,
-      });
+      mainSeries.applyOptions(mainSeriesOptions);
 
       window.addEventListener("resize", handleResize);
 
       return () => {
         window.removeEventListener("resize", handleResize);
-        chartContainerRef.current && chart.remove();
+        chartRef.current && chart.remove();
       };
     }
   }, [backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]);
 
-  return <div ref={chartContainerRef} />;
+  return (
+    <div ref={chartContainerRef} className="relative h-full w-full">
+      <div className="lw-attribution text-sm">Max Win: 100 SOL</div>
+      <div ref={chartRef} />
+    </div>
+  );
 };
 
 export function CandlestickChart(props: any) {
