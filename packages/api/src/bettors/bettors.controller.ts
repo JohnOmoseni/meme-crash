@@ -15,7 +15,7 @@ import { UpdateBettorDto } from './dto/update-bettor.dto';
 export class BettorsController {
   constructor(private readonly bettorsService: BettorsService) {}
 
-  @Post()
+  @Post('login')
   create(@Body() createBettorDto: CreateBettorDto) {
     return this.bettorsService.create(createBettorDto);
   }
