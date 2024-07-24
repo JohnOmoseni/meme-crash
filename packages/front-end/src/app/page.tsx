@@ -17,7 +17,7 @@ export default function Home() {
           <div className="data-table card flex-column table w-full grow gap-1 max-sm:h-[70vh] sm:col-span-1 sm:row-span-2 sm:h-full">
             <Standings />
           </div>
-          <div className="card relative row-span-2 max-h-[50vh] w-full !overflow-visible sm:col-span-2">
+          <div className="card relative row-span-2 h-full max-h-[50vh] w-full !overflow-visible sm:col-span-2">
             <Announcement />
           </div>
         </div>
