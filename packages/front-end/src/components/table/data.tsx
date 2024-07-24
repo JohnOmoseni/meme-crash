@@ -13,7 +13,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -21,7 +21,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -29,7 +29,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -37,7 +37,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -45,7 +45,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -53,7 +53,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -61,7 +61,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   {
@@ -69,7 +69,7 @@ export const playerboard: PlayerBoard[] = [
     player: "",
     amount: 100,
     status: "pending",
-    bet: "m@example.com",
+    bet: "0.5",
     cashout: "pending",
   },
   // ...

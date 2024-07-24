@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <Table className="overflow-hidden rounded-lg">
+    <Table className="overflow-hidden rounded-lg max-[370px]:text-[0.6rem]">
       <TableHeader className="shad-table-row-header">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow
@@ -45,7 +45,7 @@ export function DataTable<TData, TValue>({
               return (
                 <TableHead
                   key={header.id}
-                  className="text-center font-avenir text-base font-semibold text-foreground-100"
+                  className="text-center font-avenir text-base font-semibold text-foreground-100 max-[370px]:px-2.5 max-[370px]:text-[0.65rem]"
                 >
                   {header.isPlaceholder
                     ? null
@@ -68,7 +68,10 @@ export function DataTable<TData, TValue>({
               className="shad-table-row"
             >
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id} className="text-center">
+                <TableCell
+                  key={cell.id}
+                  className="text-center max-[370px]:p-2"
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}

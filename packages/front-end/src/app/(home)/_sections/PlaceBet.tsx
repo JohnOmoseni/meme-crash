@@ -14,7 +14,7 @@ function PlaceBet() {
 
   return (
     <div
-      className="card h-full w-full sm:min-w-[350px]"
+      className="card h-full w-full max-sm:mx-auto sm:min-w-[350px]"
       style={{ zoom: "80%" }}
     >
       <div className="flex-column h-full w-full">
