@@ -36,6 +36,14 @@ export const ChartComponent = (props: any) => {
         });
       };
 
+      console.log(
+        chartContainerRef?.current?.clientWidth,
+        chartContainerRef?.current?.offsetWidth,
+        chartContainerRef?.current?.clientHeight,
+        chartContainerRef?.current?.offsetHeight,
+        chartContainerRef?.current,
+      );
+
       const chart = createChart(
         chartRef?.current!,
         chartOptions(chartContainerRef),

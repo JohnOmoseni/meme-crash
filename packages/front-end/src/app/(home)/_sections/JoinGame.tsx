@@ -15,7 +15,6 @@ import {
   solana_plain,
 } from "@/constants/icons";
 import Image from "next/image";
-import ArrowInput from "@/components/ArrowInput";
 
 function JoinGame() {
   const [priceIndex, setPriceIndex] = useState(0);
@@ -35,14 +34,7 @@ function JoinGame() {
     setPriceIndex(0);
   };
 
-  // useEffect(() => {
-  //   if(amount === )
-
-  // }, [amount]);
-
   let ArrowIcon = priceIndex === 0 ? ArrowRight : ArrowLeft;
-
-  console.log(activeTab, amount);
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-y-auto overflow-x-hidden">
@@ -95,18 +87,15 @@ function JoinGame() {
 
             <div className="row-flex-start relative col-span-3 my-1">
               <Input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 min="0.01"
                 max="5"
                 step="0.01"
                 defaultValue=""
                 value={amount}
                 onChange={(e) => {
-                  if (Number(e.target.value) === 0) {
-                    setAmount("");
-                  } else {
-                    setAmount(Number(e.target.value));
-                  }
+                  setAmount(Number(e.target.value));
                 }}
                 className="input !h-11 !pr-12 !text-[1rem]"
               />
@@ -178,18 +167,15 @@ const Top = () => {
         <div className="my-auto ml-4 flex w-1/3 min-w-24 justify-end font-avenir text-sm">
           <div className="relative flex min-w-24">
             <Input
-              type="number"
+              type="text"
+              inputMode="numeric"
               min="1"
               max="10000"
               step="0.01"
               value={inputValue}
               disabled={false}
               onChange={(e) => {
-                if (Number(e.target.value) === 0) {
-                  setInputValue("");
-                } else {
-                  setInputValue(Number(e.target.value));
-                }
+                setInputValue(Number(e.target.value));
               }}
               className="input !h-9"
             />
