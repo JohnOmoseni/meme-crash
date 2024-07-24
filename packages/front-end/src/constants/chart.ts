@@ -1,4 +1,3 @@
-"use client";
 import { RefObject } from "react";
 
 export const chartOptions = (chartContainerRef: RefObject<HTMLDivElement>) => {

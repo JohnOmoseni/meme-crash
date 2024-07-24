@@ -83,6 +83,21 @@
   z-index: 90 !important;
 }
 
+/* ARROW */
+.arrow-up {
+  border: 8px solid white;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.arrow-down {
+  border: 8px solid white;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
 /* .snes-button {
   background-color: #4eb6d9;
   border: solid;

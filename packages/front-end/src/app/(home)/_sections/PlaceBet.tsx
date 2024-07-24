@@ -32,7 +32,7 @@ function PlaceBet() {
                 className="btn-variant-yellow mb-3"
               />
 
-              <p className="text-base font-medium text-foreground-200">
+              <p className="text-center text-base font-medium text-foreground-200">
                 Connect Wallet and Sign the nonce
               </p>
 

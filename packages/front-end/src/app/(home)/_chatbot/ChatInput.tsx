@@ -106,7 +106,7 @@ function ChatInput() {
             typeof="text"
             ref={textareaRef}
             value={text}
-            disabled={isWalletConnected}
+            disabled={!isWalletConnected}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             placeholder={
@@ -120,7 +120,10 @@ function ChatInput() {
         </div>
 
         <div className="row-flex gap-3">
-          <div title="emoji" className="z-[99] hover:text-slate-800">
+          <div
+            title="emoji"
+            className="z-[99] cursor-pointer hover:text-slate-800"
+          >
             <EmojiSmile
               color="#999"
               className=""

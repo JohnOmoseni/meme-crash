@@ -15,6 +15,8 @@ import {
   solana_plain,
 } from "@/constants/icons";
 import Image from "next/image";
+import clsx from "clsx";
+import ArrowInput from "@/components/ArrowInput";
 
 function JoinGame() {
   const [priceIndex, setPriceIndex] = useState(0);
@@ -23,10 +25,18 @@ function JoinGame() {
     (state) => state.appState,
   );
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeValueIndex, setActiveValueIndex] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | string>(priceList[0]);
 
+  useEffect(() => {
+    if (amount) {
+      const index = priceList?.findIndex((price) => price === Number(amount));
+      index !== -1 ? setActiveValueIndex(index) : setActiveValueIndex(null);
+    }
+  }, [amount]);
+
   const handlePriceTab = () => {
+    setActiveValueIndex(0);
     if (priceIndex === 0) {
       setPriceIndex(1);
       return;
@@ -56,22 +66,17 @@ function JoinGame() {
               />
             </button>
 
-            {priceList?.map((price, idx) => {
+            {priceList?.map((price, index) => {
               return (
                 <button
                   key={price}
                   onClick={() => {
-                    setActiveTab(idx);
-                    setAmount(priceList[idx]);
+                    setActiveValueIndex(index);
+                    setAmount(priceList[index]);
                   }}
-                  className={cn(
-                    "badge-tab",
-                    {
-                      // "bg-appointments": type === "appointments",
-                    },
-                    amount === price && "!btn-variant-lilac",
-                    activeTab === idx && "!btn-variant-lilac",
-                  )}
+                  className={clsx("badge-tab", {
+                    "!btn-variant-lilac": activeValueIndex === index,
+                  })}
                 >
                   <Image
                     src={solana_plain}
@@ -87,19 +92,18 @@ function JoinGame() {
 
             <div className="row-flex-start relative col-span-3 my-1">
               <Input
-                type="text"
+                type="number"
                 inputMode="numeric"
                 min="0.01"
                 max="5"
                 step="0.01"
-                defaultValue=""
                 value={amount}
                 onChange={(e) => {
-                  setAmount(Number(e.target.value));
+                  setAmount(e.target.value);
                 }}
-                className="input !h-11 !pr-12 !text-[1rem]"
+                className="input !h-11 !pr-[3.5rem] !text-[1rem]"
               />
-              <div className="absolute right-2 top-0 flex h-full w-12 select-none justify-end px-1">
+              <div className="absolute right-0 top-0 flex h-full w-12 select-none justify-end gap-1.5 px-1.5">
                 <Image
                   src={solana_plain}
                   alt=""
@@ -107,6 +111,7 @@ function JoinGame() {
                   height={1000}
                   className="pointer-events-none my-auto h-5 w-5 select-none"
                 />
+                <ArrowInput value={Number(amount)} setValue={setAmount} />
               </div>
             </div>
           </div>
