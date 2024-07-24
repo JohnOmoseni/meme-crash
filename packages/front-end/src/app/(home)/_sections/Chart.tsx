@@ -32,17 +32,12 @@ export const ChartComponent = (props: any) => {
             screenSize < 648
               ? screenSize
               : chartContainerRef?.current?.clientWidth,
-          height: chartContainerRef?.current?.clientHeight,
+          height:
+            screenSize > 648 && screenSize < 768
+              ? 0
+              : chartContainerRef?.current?.clientHeight,
         });
       };
-
-      console.log(
-        chartContainerRef?.current?.clientWidth,
-        chartContainerRef?.current?.offsetWidth,
-        chartContainerRef?.current?.clientHeight,
-        chartContainerRef?.current?.offsetHeight,
-        chartContainerRef?.current,
-      );
 
       const chart = createChart(
         chartRef?.current!,

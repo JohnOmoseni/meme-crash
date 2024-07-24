@@ -50,7 +50,10 @@ function JoinGame() {
     <div className="relative flex h-full w-full flex-col overflow-y-auto overflow-x-hidden">
       <div className="mx-auto w-11/12 px-2 py-1">
         <div className="mb-1 mt-2 flex w-full flex-col">
-          <Top />
+          <Top
+            isWalletConnected={isWalletConnected}
+            isNetworkAvailable={isNetworkAvailable}
+          />
 
           <div className="relative my-1 grid w-full grid-cols-3 grid-rows-2 gap-x-2 gap-y-1 2xl:gap-x-4 2xl:gap-y-2">
             <button
@@ -117,17 +120,25 @@ function JoinGame() {
           </div>
         </div>
       </div>
-      <PlacebetFooter />
+      <PlacebetFooter
+        isWalletConnected={isWalletConnected}
+        isNetworkAvailable={isNetworkAvailable}
+      />
     </div>
   );
 }
 
 export default JoinGame;
 
-const Top = () => {
+type Props = {
+  isWalletConnected: boolean;
+  isNetworkAvailable: boolean;
+};
+
+const Top = ({ isWalletConnected, isNetworkAvailable }: Props) => {
   const [showInput, setShowInput] = useState(false);
-  const [selectedBet, setSelectedBet] = useState("2x");
-  const [inputValue, setInputValue] = useState<number | string>("100.5");
+  const [selectedBet, setSelectedBet] = useState(2);
+  const [inputValue, setInputValue] = useState<number>(100.5);
 
   return (
     <div className="row-flex-btwn relative h-9 gap-3">
@@ -146,22 +157,25 @@ const Top = () => {
 
       {!showInput ? (
         <div className="row-flex my-auto ml-1 grow !justify-around font-avenir text-base">
-          {["2x", "10x", "100x"].map((prediction) => (
+          {[2, 10, 100].map((prediction) => (
             <button
               key={prediction}
               onClick={() => setSelectedBet(prediction)}
               className={cn(
                 "transition-sm font-medium brightness-75 hover:brightness-90",
                 selectedBet === prediction &&
-                  "scale-[1.15] !text-foreground brightness-100",
+                  "scale-[1.15] font-bold !text-foreground brightness-100",
               )}
             >
-              {prediction}
+              {prediction}x
             </button>
           ))}
 
           <button
-            className="row-flex-start transition-sm text-[1rem] font-bold hover:brightness-105"
+            className={cn(
+              "row-flex-start transition-sm font-bold hover:brightness-100",
+            )}
+            disabled={!isNetworkAvailable}
             onClick={() => setShowInput(true)}
           >
             {inputValue}x
@@ -172,11 +186,11 @@ const Top = () => {
         <div className="my-auto ml-4 flex w-1/3 min-w-24 justify-end font-avenir text-sm">
           <div className="relative flex min-w-24">
             <Input
-              type="text"
+              type="number"
               inputMode="numeric"
               min="1"
               max="10000"
-              step="0.01"
+              step="0.1"
               value={inputValue}
               disabled={false}
               onChange={(e) => {
@@ -186,17 +200,19 @@ const Top = () => {
             />
 
             <div className="absolute right-0 top-0 flex h-full w-12 select-none justify-end px-1">
-              {/* <ArrowInput
-                value={inputValue}
+              <ArrowInput
+                value={Number(inputValue)}
                 setValue={setInputValue}
-                size={16}
-              /> */}
+                isEdit
+              />
             </div>
           </div>
           <button
             className="absolute -right-6 top-1.5 my-auto"
-            disabled={false}
-            onClick={() => setShowInput(false)}
+            onClick={() => {
+              setShowInput(false);
+              setSelectedBet(inputValue);
+            }}
           >
             <Cancel size={16} />
           </button>
@@ -206,7 +222,7 @@ const Top = () => {
   );
 };
 
-const PlacebetFooter = () => (
+const PlacebetFooter = ({ isWalletConnected, isNetworkAvailable }: Props) => (
   <div className="mx-auto w-11/12 px-2 py-2">
     <ButtonVariant
       title="Join Game"

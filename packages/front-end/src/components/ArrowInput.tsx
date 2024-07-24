@@ -23,22 +23,30 @@ function ArrowInput({
           disabled={!isNetworkAvailable}
           onClick={() => {
             let inc = isEdit ? 0.1 : 0.01;
-            const newValue = value + inc;
-            setValue(newValue.toFixed(2));
+            const newValue = isEdit
+              ? (value + inc).toFixed(1)
+              : (value + inc).toFixed(2);
+            setValue(Number(newValue));
           }}
         >
-          <div className={cn("arrow-up", arrowStyles)} />
+          <div
+            className={cn("arrow-up", isEdit && "!border-[6px]", arrowStyles)}
+          />
         </button>
         <button
           className="z-50 flex h-1/2 w-full pb-1.5 pt-0.5 active:translate-y-0.5 active:brightness-90"
           disabled={false}
           onClick={() => {
             let dec = isEdit ? 0.1 : 0.01;
-            const newValue = value - dec;
-            setValue(Math.max(Number(newValue.toFixed(2)), 0));
+            const newValue = isEdit
+              ? (value - dec).toFixed(1)
+              : (value - dec).toFixed(2);
+            setValue(Math.max(Number(newValue), 0));
           }}
         >
-          <div className={cn("arrow-down", arrowStyles)} />
+          <div
+            className={cn("arrow-down", isEdit && "!border-[6px]", arrowStyles)}
+          />
         </button>
       </div>
     </>
