@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { useAppDispatch, useAppSelector } from "@/types";
 import { setActiveModal, setOpenMenu } from "@/redux/features/appSlice";
+import { online } from "@/constants/icons";
 
 export type NavLinkProps = {
   name: string;
@@ -28,32 +29,55 @@ function NavLinks({ name, href, menu, tag, icon, idx }: NavLinkProps) {
   };
 
   return (
-    <Link
-      href={href}
-      {...(menu && animateFn(linksAni, idx))}
-      onClick={() => handleClick(tag!)}
-      className="flex-column group !items-center"
-    >
-      <motion.span>
-        <Image
-          src={icon!}
-          alt=""
-          width={1000}
-          height={1000}
-          className="h-8 w-fit"
-        />
-      </motion.span>
-      <motion.span
-        className={cn(
-          "font-star font-bold uppercase transition-colors group-hover:text-secondary-foreground",
-          menu ? menulink : navlink,
-          activeModal === tag && "active-modal",
-        )}
+    <>
+      <Link
+        href={href}
+        {...(menu && animateFn(linksAni, idx))}
+        onClick={() => handleClick(tag!)}
+        className="flex-column group !items-center"
       >
-        {name}
-      </motion.span>
-    </Link>
+        <motion.span>
+          <Image
+            src={icon!}
+            alt=""
+            width={1000}
+            height={1000}
+            className="h-8 w-fit"
+          />
+        </motion.span>
+        <motion.span
+          className={cn(
+            "font-star font-bold uppercase transition-colors group-hover:text-secondary-foreground",
+            menu ? menulink : navlink,
+            activeModal === tag && "active-modal",
+          )}
+        >
+          {name}
+        </motion.span>
+      </Link>
+    </>
   );
 }
 
 export default NavLinks;
+
+export const OnlineCount = () => (
+  <div className="flex-column group select-none !items-center hover:cursor-none">
+    <motion.span>
+      <Image
+        src={online}
+        alt=""
+        width={1000}
+        height={1000}
+        className="h-8 w-fit"
+      />
+    </motion.span>
+    <motion.span
+      className={cn(
+        "font-star font-bold uppercase transition-colors group-hover:text-secondary-foreground",
+      )}
+    >
+      Online: 40
+    </motion.span>
+  </div>
+);

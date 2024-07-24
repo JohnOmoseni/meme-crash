@@ -1,6 +1,17 @@
+"use client";
+
 import { ButtonVariant } from "@/components/CustomButton";
+import { useAppSelector } from "@/types";
+import JoinGame from "./JoinGame";
+import ImageBg from "@/components/ImageBg";
 
 function PlaceBet() {
+  const { isNetworkAvailable, isWalletConnected } = useAppSelector(
+    (state) => state.appState,
+  );
+
+  const btnLabel = isNetworkAvailable ? "Connect Wallet" : "Connect Wallet";
+
   return (
     <div
       className="card h-full w-full sm:min-w-[350px]"
@@ -8,16 +19,34 @@ function PlaceBet() {
     >
       <div className="flex-column h-full w-full">
         <div className="heading-bg !min-h-fit">
-          <div className="heading-variant">No more bets</div>
+          <div className="heading-variant">Place your bets</div>
         </div>
 
-        <div className="scrollbar-thin relative flex h-full w-full flex-col overflow-y-auto overflow-x-hidden px-3">
-          <ButtonVariant
-            title="Select Wallet"
-            className="mx-auto my-10 mt-16"
-          />
+        <div className="scrollbar-thin relative flex h-full w-full flex-col overflow-y-auto px-1">
+          {isWalletConnected && <JoinGame />}
+
+          {(!isWalletConnected || !isNetworkAvailable) && (
+            <div className="mx-auto my-4 mt-16">
+              <ButtonVariant
+                title={btnLabel}
+                className="btn-variant-yellow mb-3"
+              />
+
+              <p className="text-base font-medium text-foreground-200">
+                Connect Wallet and Sign the nonce
+              </p>
+
+              <ButtonVariant
+                title="Disconnect Wallet"
+                className="!btn-grey !my-3"
+              />
+            </div>
+          )}
         </div>
       </div>
+
+      <ImageBg containerStyles="left-0 h-32 w-32" />
+      <ImageBg containerStyles="right-0 h-32 w-32 scale-x-[-1]" />
     </div>
   );
 }

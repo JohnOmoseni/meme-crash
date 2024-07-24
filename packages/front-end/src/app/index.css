@@ -23,32 +23,40 @@
     --background-100: #272d3a;
 
     --foreground: #e8e9e9;
+    --foreground-100: #fff3ec;
+    --foreground-200: #9f9f9f;
+
+    --card: #272d3a;
 
     --secondary: #d5880b;
     --secondary-foreground: #f1b71b;
 
-    --card: #272d3a;
+    --variant-to: #703de4;
+    --variant-from: #b49ef1;
+    --variant-via: #8e6bea;
 
     --border: #454e5b;
-    --border-100: #454e5b;
-    --border-variant: #fed45f;
+    --border-secondary: #fed45f;
+    --border-variant: #a091f5;
 
     --grey: #abb8c4;
-    --grey-100: #76828d;
+    --grey-100: #9f9f9f;
+    --grey-btn: #323c49;
 
     --input: #1a1d21;
     --ring: #363a3d;
 
     --muted: #222;
-    --muted-foreground: #abb8c4;
+    --muted-foreground: #9f9f9f;
 
-    --drop-shadow: #1d2125e1; /* bg-dark-200 */
-    --scroll-bg: #0d0f10;
     --radius: 0.5rem;
+    --drop-shadow: #1d2125e1; /* bg-dark-200 */
+    --scroll-thumb: #17191e;
+    --scroll-track: #454e5b;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground-100;
   }
   h1 {
     @apply text-primaryFont font-bold;
@@ -75,6 +83,7 @@
     @apply flex flex-col items-start justify-center;
   }
 
+  /* CUSTOM SECTION STYLES */
   .card {
     @apply overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm;
   }
@@ -84,11 +93,29 @@
   .heading-variant {
     @apply font-star text-xl uppercase tracking-wide;
   }
-  .td-sm {
-    @apply mx-auto break-words font-medium max-[370px]:w-[10ch];
+  .input {
+    @apply my-auto h-10 w-full overflow-hidden rounded-lg border-2 border-border bg-background px-2 text-base font-bold shadow-inner disabled:border-2 disabled:border-black/75 disabled:bg-gray-700 disabled:opacity-75;
   }
   .active-modal {
     @apply font-semibold text-secondary-foreground;
+  }
+  .arrow {
+    @apply m-1 my-auto object-scale-down pb-0.5 pt-0.5 grayscale hover:brightness-125;
+  }
+  .btn-variant-yellow {
+    @apply w-64 border-border-secondary bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-black !important;
+  }
+  .btn-variant-lilac {
+    @apply border-border-variant bg-gradient-to-r from-variant-from via-variant-via to-variant-to text-foreground !important;
+  }
+  .btn-grey {
+    @apply border-border bg-gradient-to-l from-background via-slate-900 to-slate-800 text-foreground !important;
+  }
+  .btn-variant {
+    @apply row-flex my-1 inline-flex h-10 w-full whitespace-nowrap rounded-md border-2 px-6 py-2 font-star text-lg uppercase tracking-wide subpixel-antialiased shadow-inner filter transition duration-150 hover:brightness-90 active:translate-y-0.5 active:brightness-90 disabled:pointer-events-none disabled:opacity-50 2xl:h-12 2xl:py-3;
+  }
+  .badge-tab {
+    @apply row-flex my-1 h-8 gap-2 whitespace-nowrap rounded-md border-2 border-border bg-grey-btn px-6 py-2 font-avenir text-base font-bold uppercase text-foreground shadow-inner filter transition duration-150 hover:brightness-125 active:translate-y-0.5 active:brightness-90 disabled:pointer-events-none disabled:opacity-50 2xl:h-10 2xl:py-3;
   }
 
   /* =====  SHADCN OVERRIDES */
@@ -102,7 +129,7 @@
     @apply border-border bg-input !important;
   }
   .shad-alert-dialog {
-    @apply border-2 border-border-100 bg-background-100 outline-none !important;
+    @apply border-2 border-border bg-background-100 outline-none !important;
   }
   .shad-dialog button {
     @apply focus:ring-0 focus:ring-offset-0 focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
@@ -114,7 +141,7 @@
     @apply border-b bg-background py-1 !important;
   }
   .shad-table-row {
-    @apply border-b border-slate-700 py-2 even:bg-background hover:bg-slate-700 hover:even:bg-black/70 !important;
+    @apply border-b border-slate-700 py-2 even:bg-background hover:bg-slate-700 hover:even:bg-black/50 !important;
   }
 
   /* Data Table */
@@ -123,6 +150,9 @@
   }
   .table-actions {
     @apply row-flex !justify-evenly gap-4 space-x-2 bg-background p-1;
+  }
+  .table-data-sm {
+    @apply mx-auto break-words font-medium capitalize max-[370px]:w-[10ch];
   }
 }
 

@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 function ConnectLoader({
   label,
   containerStyles,
+  textStyles,
 }: {
   label?: string;
   containerStyles?: string;
+  textStyles?: string;
 }) {
   return (
     <div
@@ -15,7 +17,12 @@ function ConnectLoader({
       )}
       style={{ zIndex: 100 }}
     >
-      <h3 className="transition-sm animate-pulse font-star text-xl uppercase">
+      <h3
+        className={cn(
+          "transition-sm animate-pulse font-star text-xl uppercase",
+          textStyles,
+        )}
+      >
         {label ?? "Connecting..."}
       </h3>
     </div>

@@ -57,21 +57,6 @@
   white-space: nowrap !important;
 }
 
-/* .snes-button {
-  background-color: #4eb6d9;
-  border: solid;
-  -o-border-image: var(--border-image);
-  border-image: var(--border-image);
-  border-image-outset: 6px;
-  border-image-repeat: initial;
-  border-image-slice: 12;
-  border-width: 12px;
-  color: #2c3e50;
-  padding: 4px 18px;
-  position: relative;
-  word-spacing: -0.3em;
-} */
-
 /* SCROLLBAR */
 .scrollbar-thin {
   /* #17191e thumb #454e5b track */
@@ -97,3 +82,18 @@
   bottom: 25% !important;
   z-index: 90 !important;
 }
+
+/* .snes-button {
+  background-color: #4eb6d9;
+  border: solid;
+  -o-border-image: var(--border-image);
+  border-image: var(--border-image);
+  border-image-outset: 6px;
+  border-image-repeat: initial;
+  border-image-slice: 12;
+  border-width: 12px;
+  color: #2c3e50;
+  padding: 4px 18px;
+  position: relative;
+  word-spacing: -0.3em;
+} */

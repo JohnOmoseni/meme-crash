@@ -10,6 +10,7 @@ type BtnProps = {
   type?: "button" | "submit" | "reset";
   dir?: "left" | "right";
   icon?: IconType;
+  isLoading?: boolean;
   disabled?: boolean;
   onClick?: () => void;
 };
@@ -18,22 +19,19 @@ export const ButtonVariant = ({
   title,
   className,
   type,
-  icon: Icon,
   onClick,
+  isLoading,
   disabled,
-  dir = "left",
 }: BtnProps) => {
   return (
     <button
       type={type || "button"}
       disabled={disabled}
       onClick={onClick}
-      className={cn(
-        "row-flex my-1 inline-flex h-10 w-64 whitespace-nowrap rounded-md border-2 border-border-variant bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 px-6 py-2 font-star text-lg uppercase tracking-wide text-black subpixel-antialiased shadow-inner filter transition duration-150 hover:brightness-90 active:translate-y-0.5 active:brightness-90 disabled:pointer-events-none disabled:opacity-50 2xl:h-12 2xl:py-3",
-        className,
-      )}
+      className={cn("btn-variant", className)}
     >
-      {disabled && (
+      {title}
+      {disabled && isLoading && (
         <span className="row-flex mr-1.5">
           <ClipLoader
             color={"orange"}
@@ -44,7 +42,6 @@ export const ButtonVariant = ({
           />
         </span>
       )}
-      {title}
     </button>
   );
 };

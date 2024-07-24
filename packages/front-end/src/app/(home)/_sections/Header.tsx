@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import NavLinks from "@/components/NavLinks";
+import NavLinks, { OnlineCount } from "@/components/NavLinks";
 
 import { Dispatch, SetStateAction } from "react";
 import { navLinks } from "@/constants";
@@ -52,6 +52,7 @@ const Header = () => {
           </div>
 
           <div className="md:row-flex hidden w-full gap-7">
+            <OnlineCount />
             {navLinks?.map((link, idx) => <NavLinks key={idx} {...link} />)}
           </div>
 
@@ -65,7 +66,10 @@ const Header = () => {
             />
           </div>
 
-          <div className="hidden md:flex">
+          <div className="md:row-flex hidden gap-3.5">
+            <p className="whitespace-nowrap font-avenir text-foreground">
+              0.00 SOL
+            </p>
             <TonConnectButton />
           </div>
         </div>

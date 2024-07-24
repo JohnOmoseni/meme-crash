@@ -21,7 +21,8 @@ function ChatInput() {
   const [showEmoji, setShowEmoji] = useState(false);
   const { screenSize } = useAppSelector((state) => state.appState);
 
-  const { chatLog, isWalletConnected } = useAppSelector((state) => state.chat);
+  const { chatLog } = useAppSelector((state) => state.chat);
+  const { isWalletConnected } = useAppSelector((state) => state.appState);
 
   const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null!);
@@ -96,7 +97,7 @@ function ChatInput() {
   return (
     <div
       className={cn(
-        "row-flex mt-auto w-full overflow-hidden border-t border-border border-opacity-80 bg-black/80 py-2 pl-2 pr-3 sm:min-h-[3rem]",
+        "row-flex mt-auto w-full overflow-hidden rounded-b-xl border-t border-border border-opacity-80 bg-black/80 py-2 pl-2 pr-3 sm:min-h-[3rem]",
       )}
     >
       <form className="row-flex w-full gap-3" onSubmit={handleSubmit}>

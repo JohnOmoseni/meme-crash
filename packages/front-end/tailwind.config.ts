@@ -24,6 +24,7 @@ const config = {
         border: {
           DEFAULT: "var(--border)",
           variant: "var(--border-variant)",
+          secondary: "var(--border-secondary)",
           100: "var(--border-100)",
         },
         background: {
@@ -34,17 +35,24 @@ const config = {
         foreground: {
           DEFAULT: "var(--foreground)",
           100: "var(--foreground-100)",
+          200: "var(--foreground-200)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
           100: "var(--secondary-100)",
         },
+        variant: {
+          from: "var(--variant-from)",
+          to: "var(--variant-to)",
+          via: "var(--variant-via)",
+        },
         card: {
           DEFAULT: "var(--card)",
         },
         grey: {
           DEFAULT: "var(--grey)",
+          btn: "var(--grey-btn)",
           100: "var(--grey-100)",
         },
         muted: {

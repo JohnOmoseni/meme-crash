@@ -75,6 +75,17 @@ body {
   list-style-type: none;
 }
 
+/* for input number type */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  /* display: none; */
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 input:-internal-autofill-selected {
   appearance: menulist-button;
   background-image: none !important;
@@ -88,11 +99,11 @@ input:-internal-autofill-selected {
 }
 
 .wrapper ::-webkit-scrollbar-track {
-  background: #454e5b;
+  background: var(--scroll-track);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #17191e;
+  background: var(--scroll-thumb);
   border-radius: 999px;
 }

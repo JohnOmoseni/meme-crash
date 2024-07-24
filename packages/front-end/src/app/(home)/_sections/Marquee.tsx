@@ -6,7 +6,7 @@ function Marquee() {
 
   return (
     showMarquee && (
-      <div className="marquee relative z-0 hidden h-[30px] w-full overflow-hidden border-b border-border bg-card py-1 sm:block">
+      <div className="marquee invisible relative z-0 h-[30px] w-full overflow-hidden border-b border-border bg-card py-1 sm:visible">
         <div className="absolute z-0 flex h-full w-full animate-marquee whitespace-nowrap">
           <p className="text-base font-bold text-secondary-foreground">
             🎉 Degen Coin Flip Summer Event: Live Now! 1000+ SOL Rewards • 10%
@@ -35,7 +35,7 @@ function Marquee() {
           title="close"
           onClick={() => setShowMarquee(false)}
         >
-          <Cancel size={18} className="icon text-white" />
+          <Cancel size={18} className="icon text-foreground" />
         </span>
       </div>
     )

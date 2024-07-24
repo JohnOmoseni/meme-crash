@@ -4,7 +4,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 const initialState: ChatBotState = {
   chatbotId: "",
   chatLog: [],
-  isWalletConnected: false,
 };
 
 const chatbotSlice = createSlice({

@@ -26,7 +26,6 @@ export type ChatProps = {
 export type ChatBotState = {
   chatbotId: string;
   chatLog: ChatProps[] | [{ loading?: boolean }];
-  isWalletConnected: boolean;
 };
 
 export const useAppSelector = useSelector.withTypes<RootState>();

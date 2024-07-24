@@ -12,7 +12,7 @@ function Announcement() {
   return (
     <div className="flex h-full w-full flex-col divide-y-2 divide-border">
       {showNotification && (
-        <div className="heading-bg flex w-full !justify-between gap-2">
+        <div className="heading-bg flex w-full !justify-between gap-2 rounded-t-xl">
           <div className="row-flex-start w-full gap-3">
             <h3 className="min-w-[8ch] break-words text-lg font-bold text-secondary-foreground max-sm:text-base">
               Announcement
@@ -25,7 +25,8 @@ function Announcement() {
               onClick={() => setFullClamp((prev) => !prev)}
             >
               This game is still in Beta and can contain bugs. Press HELP for
-              support. <br /> Dont click any links in the chat!
+              support. <br className="hidden md:block" /> Dont click any links
+              in the chat!
             </p>
           </div>
 

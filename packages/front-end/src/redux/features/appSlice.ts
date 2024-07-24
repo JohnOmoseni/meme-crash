@@ -5,6 +5,8 @@ type StateProp = {
   screenSize: number;
   activeModal: string;
   showModal: boolean;
+  isNetworkAvailable: boolean;
+  isWalletConnected: boolean;
 };
 
 const initialAppState: StateProp = {
@@ -12,6 +14,8 @@ const initialAppState: StateProp = {
   screenSize: 0,
   activeModal: "",
   showModal: false,
+  isNetworkAvailable: false,
+  isWalletConnected: true,
 };
 
 const appSlice = createSlice({
@@ -29,8 +33,20 @@ const appSlice = createSlice({
       state.activeModal = activeModal;
       state.showModal = showModal;
     },
+    setNetwork: (state, action: PayloadAction<boolean>) => {
+      state.isNetworkAvailable = action.payload;
+    },
+    setWalletConnected: (state, action: PayloadAction<boolean>) => {
+      state.isWalletConnected = action.payload;
+    },
   },
 });
 
 export default appSlice.reducer;
-export const { setScreenSize, setOpenMenu, setActiveModal } = appSlice.actions;
+export const {
+  setScreenSize,
+  setOpenMenu,
+  setActiveModal,
+  setNetwork,
+  setWalletConnected,
+} = appSlice.actions;

@@ -4,9 +4,13 @@ import { useEffect, useRef } from "react";
 import { ChatProps, useAppSelector, useAppDispatch } from "@/types";
 import { cn } from "@/lib/utils";
 import Chat from "./Chat";
+import ConnectLoader from "@/components/fallback/ConnectLoader";
 
 function ChatMain({ containerClassName }: { containerClassName?: string }) {
-  const { chatLog, isWalletConnected } = useAppSelector((state) => state.chat);
+  const { chatLog } = useAppSelector((state) => state.chat);
+  const { isNetworkAvailable, isWalletConnected } = useAppSelector(
+    (state) => state.appState,
+  );
 
   const elemRef = useRef<HTMLDivElement>(null);
 
@@ -21,17 +25,21 @@ function ChatMain({ containerClassName }: { containerClassName?: string }) {
         containerClassName,
       )}
     >
-      <div className="flex w-full flex-col gap-4 overflow-y-auto px-4 pb-1 pt-2.5">
-        {chatLog?.length > 0 &&
-          chatLog?.map((chat, idx) => {
-            if ("timestamp" in chat) {
-              return <Chat key={chat.timestamp} chat={chat} />;
-            } else if (!("loading" in chat) || !chat.loading) {
-              // Handle other cases or return null if necessary
-              return <Chat key={idx} chat={chat as ChatProps} />;
-            }
-          })}
-      </div>
+      {!isNetworkAvailable ? (
+        <ConnectLoader textStyles="" containerStyles="relative h-[23.4vh]" />
+      ) : (
+        <div className="flex w-full flex-col gap-4 overflow-y-auto px-4 pb-1 pt-2.5">
+          {chatLog?.length > 0 &&
+            chatLog?.map((chat, idx) => {
+              if ("timestamp" in chat) {
+                return <Chat key={chat.timestamp} chat={chat} />;
+              } else if (!("loading" in chat) || !chat.loading) {
+                // Handle other cases or return null if necessary
+                return <Chat key={idx} chat={chat as ChatProps} />;
+              }
+            })}
+        </div>
+      )}
     </div>
   );
 }

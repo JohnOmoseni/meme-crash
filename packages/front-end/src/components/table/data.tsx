@@ -2,93 +2,75 @@ export type PlayerBoard = {
   id: string;
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
-  email: string;
-  patient: {
-    $id: string;
-  };
-  userId: string;
+  cashout: "pending" | "processing" | "success" | "failed";
+  bet: string | number;
+  player: string;
 };
 
 export const playerboard: PlayerBoard[] = [
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   {
     id: "728ed52f",
+    player: "",
     amount: 100,
     status: "pending",
-    email: "m@example.com",
-    patient: {
-      $id: "",
-    },
-    userId: "",
+    bet: "m@example.com",
+    cashout: "pending",
   },
   // ...
 ];

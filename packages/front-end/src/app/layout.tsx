@@ -7,8 +7,8 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import LayoutProvider from "@/providers/LayoutProvider";
 // import "snes.css/dist/snes.min.css";
 import "./globals.css";
-import "./index.css";
 import "./utilities.css";
+import "./index.css";
 
 const PressStart2P = Press_Start_2P({
   weight: "400",

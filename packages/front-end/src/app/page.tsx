@@ -1,12 +1,9 @@
-"use client";
-
-import Image from "next/image";
 import PlaceBet from "./(home)/_sections/PlaceBet";
 import Standings from "./(home)/_sections/Standings";
 import Announcement from "./(home)/_sections/Announcement";
 
-import { background } from "@/constants/icons";
 import { CandlestickChart } from "./(home)/_sections/Chart";
+import ImageBg from "@/components/ImageBg";
 
 export default function Home() {
   return (
@@ -27,21 +24,8 @@ export default function Home() {
       </div>
 
       <>
-        <Image
-          src={background}
-          alt=""
-          width={1000}
-          height={1000}
-          className="pointer-events-none fixed bottom-0 left-0 z-0 h-64 w-64 select-none"
-        />
-
-        <Image
-          src={background}
-          alt=""
-          width={1000}
-          height={1000}
-          className="pointer-events-none fixed bottom-0 right-0 z-0 h-64 w-64 scale-x-[-1] select-none"
-        />
+        <ImageBg containerStyles="left-0" />
+        <ImageBg containerStyles="right-0 scale-x-[-1] " />
       </>
     </main>
   );
