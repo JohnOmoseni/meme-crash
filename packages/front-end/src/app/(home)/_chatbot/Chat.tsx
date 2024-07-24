@@ -5,7 +5,7 @@ import { ChatProps, useAppSelector } from "@/types";
 import { useEffect, useRef } from "react";
 
 function Chat({ chat }: { chat: ChatProps }) {
-  const { nected, chatLog } = useAppSelector((state) => state.chat);
+  const { chatLog } = useAppSelector((state) => state.chat);
 
   const you = chat?.outgoing;
 
@@ -13,7 +13,6 @@ function Chat({ chat }: { chat: ChatProps }) {
 
   useEffect(() => {
     elemRef?.current &&
-      !nected &&
       elemRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chatLog]);
 

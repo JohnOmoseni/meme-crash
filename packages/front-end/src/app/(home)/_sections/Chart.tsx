@@ -24,7 +24,8 @@ export const ChartComponent = (props: any) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (chartRef.current) {
+    const chartElem = chartRef.current;
+    if (chartElem) {
       const handleResize = () => {
         chart.applyOptions({
           width:
@@ -97,7 +98,7 @@ export const ChartComponent = (props: any) => {
 
       return () => {
         window.removeEventListener("resize", handleResize);
-        chartRef.current && chart.remove();
+        chartElem && chart.remove();
       };
     }
   }, [screenSize]);

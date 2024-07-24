@@ -16,7 +16,7 @@ export const Gradient = ({
     document.body.style.setProperty("--first-color", gradientColor);
     document.body.style.setProperty("--size", size);
     document.body.style.setProperty("--blending-value", blendingValue);
-  }, []);
+  }, [gradientColor, size, blendingValue]);
 
   return (
     <>
